@@ -1,29 +1,5 @@
-# 게시판 추가 방법
+# 돌봄·건강관리 안내 원고
 
-각 게시판 폴더에 `.md` 파일을 추가한 뒤 아래 명령을 실행하면 게시글 목록과 상세 페이지가 자동으로 생성됩니다.
-
-```bash
-node build_boards.js
-```
-
-게시판 폴더 목록:
-
-- `content/boards/online-lectures`
-- `content/boards/student-portal`
-- `content/boards/research-forum`
-- `content/boards/admissions-faq`
-- `content/boards/academic-forms`
-- `content/boards/school-events`
-
-권장 마크다운 형식:
-
-```md
----
-title: 게시글 제목
-date: 2026-04-02
-summary: 목록에 보일 짧은 설명
----
-# 본문 제목
-
-본문 내용을 작성합니다.
-```
+공개 페이지 원고는 content/site.json, 공통 화면 배치는 templates/site.html에서 관리합니다.
+`node scripts/build-site.cjs` 또는 `node build_boards.js`로 전체 페이지를 생성합니다.
+아래 문서는 안내용 요약이며 날짜가 확정된 공지나 실제 서비스 제공을 보장하는 자료가 아닙니다.

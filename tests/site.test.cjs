@@ -14,10 +14,12 @@ function setup() {
 function fill(c) {for(const [name,value] of Object.entries({name:'검증',phone:'010-0000-0000',email:'test@example.com',message:'테스트'})) c.form.elements[name].value=value;}
 function submit(c) {c.form.dispatchEvent(new c.w.Event('submit',{cancelable:true}));}
 const tick=()=>new Promise(resolve=>setImmediate(resolve));
-test('original layout retains seven icon menus, slider, three cards and four videos',()=>{
+test('template retains seven icon menus, slider, three cards and four care links',()=>{
  const c=setup();try{
  assert.equal(c.w.document.querySelectorAll('.nav-icons-wrap > *').length,7);
- assert.equal(c.w.document.querySelectorAll('iframe').length,4);
+ assert.equal(c.w.document.querySelectorAll('iframe').length,0);
+ assert.equal(c.w.document.querySelectorAll('.care-info-card').length,4);
+ assert.match(c.w.document.querySelector('.hero-title').textContent,/존중과 돌봄/);
  assert.ok(c.w.document.querySelector('#slider'));
  assert.equal(c.w.document.querySelectorAll('.bento-section > .bento-box').length,3);
  }finally{c.w.close();}
@@ -31,6 +33,7 @@ test('mock success retains endpoint, recipient key and new brand',async()=>{
  const payload=JSON.parse(c.calls[0][1].body);
  assert.equal(payload.access_key,'f145b96b-77f1-4151-b219-e7d33c39ba66');
  assert.match(payload.subject,/GTCC Institute for Well-Aging and Lifelong Health/);
+ assert.match(payload.subject,/돌봄·건강관리 상담/);
  assert.equal(c.form.querySelector('.consult-status').dataset.state,'success');
  }finally{c.w.close();}
 });

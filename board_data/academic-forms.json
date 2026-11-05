@@ -1,15 +1,6 @@
 {
-  "id": "academic-forms",
-  "title": "민간자격",
-  "description": "총회산하교육기관 민간자격안내",
+  "title": "자료 요청 안내",
+  "description": "이용 안내 자료를 문의하는 방법",
   "page": "academic_forms.html",
-  "posts": [
-    {
-      "title": "민간자격안내",
-      "date": "2026-04-02",
-      "summary": "총회산하 교육기관의 민간자격안내입니다.",
-      "slug": "2026-04-02-academic-leave-form",
-      "url": "board_posts/academic-forms/2026-04-02-academic-leave-form.html"
-    }
-  ]
+  "posts": []
 }

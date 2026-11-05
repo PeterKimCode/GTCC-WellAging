@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>연구자 포럼 자료 등록 안내 | GTCC Institute for Well-Aging and Lifelong Health</title>
+    <title>협력·제안 | GTCC Institute for Well-Aging and Lifelong Health</title>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="icon" type="image/png" href="../../assets/images/site-logo.png">
-    <link rel="stylesheet" href="../../css/style.css?v=20261105-care">
+    <link rel="stylesheet" href="../../css/style.css?v=20261105-content">
 </head>
 <body>
     <header class="top-nav">
         <div class="container top-nav-inner flex-between">
             <a class="logo-area" href="../../index.html">
-                <img src="../../assets/images/site-logo.png" alt="학교 로고" class="main-logo-image">
+                <img src="../../assets/images/site-logo.png" alt="GTCC 기관 로고" class="main-logo-image">
                 <div class="logo-text">
                     <h1>GTCC Institute for Well-Aging and Lifelong Health</h1>
                     <span>General Trias College of Cavite</span>
@@ -23,225 +23,32 @@
                 <nav class="top-links">
                     <a href="../../index.html">Home</a>
                     <a href="../../sitemap.html">사이트맵</a>
-                    <span class="lang-selector">ENG</span>
+                    <button type="button" class="lang-selector" data-lang-toggle aria-label="영어 번역 전환">ENG</button>
                 </nav>
-                <div class="search-wrap">
-                    <input type="text" placeholder="검색어를 입력하세요">
-                    <button type="button" aria-label="검색">
-                        <i class="ph-light ph-magnifying-glass"></i>
-                    </button>
-                </div>
             </div>
         </div>
+        <div id="google_translate_element" class="translate-widget" aria-hidden="true"></div>
     </header>
-    <nav class="main-category-nav">
-        <div class="container nav-icons-wrap">
-            <details class="nav-item nav-dropdown">
-                <summary class="nav-icon-link nav-dropdown-toggle">
-                    <div class="icon-box"><i class="ph-light ph-bank"></i></div>
-                    <span>학교소개</span>
-                </summary>
-                <div class="nav-dropdown-menu">
-                    <a href="../../intro_chairman.html">총회장 인사말</a>
-                    <a href="../../intro_greeting.html">총장 인사말</a>
-                    <a href="../../intro_ideology.html">교육이념</a>
-                    <a href="../../intro_history.html">연혁</a>
-                    <a href="../../intro_org.html">조직도</a>
-                    <a href="../../intro_faculty.html">교수 소개</a>
-                    <a href="../../intro_sap.html">특임교수 소개</a>
-                    <a href="../../intro_school.html">인준신학교</a>
-                </div>
-            </details>
-            <a href="../../admissions_guideline.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-graduation-cap"></i></div><span>입학안내</span></a>
-            <a href="../../degree_bachelor.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-student"></i></div><span>학과소개</span></a>
-            <a href="../../academic_info.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-calendar-blank"></i></div><span>학사안내</span></a>
-            <a href="../../campus_life.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-users"></i></div><span>대학생활</span></a>
-            <a href="../../campus_life.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-users"></i></div><span>대학생활</span></a>
-            <a href="../../research_intro.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-microscope"></i></div><span>학술연구</span></a>
-            <a href="../../online_service.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-desktop"></i></div><span>온라인서비스</span></a>
-        </div>
-    </nav>
 
+    <nav class="main-category-nav"><div class="container nav-icons-wrap">
+<details class="nav-item nav-dropdown"><summary class="nav-icon-link nav-dropdown-toggle"><div class="icon-box"><i class="ph-light ph-bank"></i></div><span>기관 소개</span></summary><div class="nav-dropdown-menu">
+<a href="../../intro_greeting.html">인사말</a>
+<a href="../../intro_chairman.html">기관의 방향</a>
+<a href="../../intro_ideology.html">돌봄 원칙</a>
+<a href="../../intro_history.html">기관 안내</a>
+<a href="../../intro_org.html">돌봄 협력 체계</a>
+<a href="../../intro_faculty.html">전문 상담 안내</a>
+<a href="../../intro_sap.html">지역사회 연계</a>
+<a href="../../intro_school.html">돌봄 환경</a></div></details>
+<a href="../../admissions_guideline.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-hand-heart"></i></div><span>이용 안내</span></a>
+<a href="../../degree_bachelor.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-heart"></i></div><span>치매 돌봄</span></a>
+<a href="../../academic_info.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-first-aid-kit"></i></div><span>건강관리</span></a>
+<a href="../../campus_life.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-users"></i></div><span>보호자 지원</span></a>
+<a href="../../research_intro.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-files"></i></div><span>자료·소식</span></a>
+<a href="../../online_service.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-chats-circle"></i></div><span>상담·문의</span></a></div></nav>
 
-<style>
-    /* 전체 컨테이너 설정 */
-    .forum-container {
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 20px;
-        font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
-    }
-
-    /* 상단 안내 영역 스타일 */
-    .board-back-link {
-        display: inline-block;
-        text-decoration: none;
-        color: #666;
-        margin-bottom: 15px;
-        font-size: 14px;
-    }
-    
-    .board-article {
-        background-color: #fff;
-        border: 1px solid #e9ecef;
-        border-radius: 8px;
-        padding: 25px;
-        margin-bottom: 40px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-
-    .board-article-meta {
-        color: #888;
-        font-size: 13px;
-        margin-bottom: 10px;
-    }
-
-    .board-article h3 {
-        margin-top: 0;
-        color: #007bff;
-        font-size: 22px;
-        border-bottom: 1px solid #eee;
-        padding-bottom: 15px;
-    }
-
-    .board-article-content {
-        line-height: 1.6;
-        color: #444;
-    }
-
-    .board-article-content ul {
-        padding-left: 20px;
-        margin-top: 10px;
-    }
-
-    /* 하단 교과목 리스트 스타일 */
-    .subject-header {
-        border-bottom: 2px solid #333;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
-    }
-
-    .subject-header h1 {
-        font-size: 24px;
-        margin-bottom: 5px;
-    }
-
-    .subject-header p {
-        color: #666;
-        margin: 0;
-    }
-
-    .subject-list {
-        display: flex;
-        flex-wrap: wrap;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        gap: 15px;
-    }
-
-    .subject-list li {
-        flex: 0 1 calc(33.333% - 10px);
-        box-sizing: border-box;
-    }
-
-    .subject-link {
-        display: block;
-        padding: 15px;
-        background-color: #f8f9fa;
-        border: 1px solid #e9ecef;
-        border-left: 4px solid #007bff;
-        text-decoration: none;
-        color: #333 !important;
-        font-weight: 500;
-        transition: all 0.2s ease;
-        text-align: center;
-    }
-
-    .subject-link:hover {
-        background-color: #007bff;
-        color: #fff !important;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-
-    /* 모바일 대응 */
-    @media (max-width: 768px) {
-        .subject-list li {
-            flex: 0 1 100%;
-        }
-    }
-</style>
-
-<div class="forum-container">
-    <a href="../../board_research_forum.html" class="board-back-link">
-        <i class="ph-light ph-arrow-left"></i> 게시판으로 돌아가기
-    </a>
-    
-    <article class="board-article">
-        <h3>교수자료실</h3>
-        <div class="board-article-content">
-            <p>교수진과 연구자들이 학술 자료를 공유하는 공간입니다.</p>
-            <ul>
-                <li>자료는 PDF 기준으로 준비해 주세요.</li>
-                <li>자료등록요청시, 작성자, 요약을 함께 <a href="mailto:yjisc@naver.com" style="color: blue; text-decoration: underline;">yjisc@naver.com</a> 으로 제출해 주세요.</li>
-                <li>자료 검토 후 게시판에 반영됩니다.</li>
-            </ul>
-        </div>
-    </article>
-
-    <section class="subject-section">
-        <div class="subject-header">
-            <h1>자료실</h1>
-            <p>항목을 클릭하면 해당 자료를 다운로드하실 수 있습니다.</p>
-        </div>
-
-        <ul class="subject-list">
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/ifXR7cFXM" target="_blank" class="subject-link">대요리문답</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/sTxHlaJ0i" target="_blank" class="subject-link">소요리문답</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/K8hAhDTkZ" target="_blank" class="subject-link">개혁주의조직신학</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/uWzFzyg1y" target="_blank" class="subject-link">기독교상담학</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/Az6kQclGR" target="_blank" class="subject-link">신앙고백서</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/ZQb6eRlO6" target="_blank" class="subject-link">역사신학</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/dwcJxN54y" target="_blank" class="subject-link">공관복음</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/tIUnvhMqy" target="_blank" class="subject-link">현대신학</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/K0kbQmkWn" target="_blank" class="subject-link">기독교윤리학</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/KaxKGxCH9" target="_blank" class="subject-link">목회학</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/AZ8myriDq" target="_blank" class="subject-link">목회상담학</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/CCKR7DY17" target="_blank" class="subject-link">예배학</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/5ORR7fa0F" target="_blank" class="subject-link">설교학</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/8nyXJ5Y30" target="_blank" class="subject-link">구약개론</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/JilwUKtOP" target="_blank" class="subject-link">신약개론</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/LfeTpG9UC" target="_blank" class="subject-link">실천신학</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/7NQwilIKR" target="_blank" class="subject-link">선교학</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/Fbc7DKmuK" target="_blank" class="subject-link">기독교교육학</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/s9PaoCmVq" target="_blank" class="subject-link">교리신학</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/DAVLXHxp0" target="_blank" class="subject-link">교회사</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/YqjjGDb3o" target="_blank" class="subject-link">기독교영성</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/aoes3TvSz" target="_blank" class="subject-link">교회절기</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/XrHH2H5uu" target="_blank" class="subject-link">장로교행정론</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/5ty7gT8xu" target="_blank" class="subject-link">모세오경</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/7GiEO8hVN" target="_blank" class="subject-link">장로교회의사상과역사</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/7GiEO8hVN" target="_blank" class="subject-link">예언서주해</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/JmX9OL8G8" target="_blank" class="subject-link">한국교회역사와영성</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/R6GDOOSWY" target="_blank" class="subject-link">개혁신학</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/0pXKvPR4o" target="_blank" class="subject-link">조직신학</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/rMGVPuMk6" target="_blank" class="subject-link">목회와상담</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/6uDAOhs2a" target="_blank" class="subject-link">목회와신학</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/0CSkzAoSF" target="_blank" class="subject-link">목회와성서</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/0CSkzAoSF" target="_blank" class="subject-link">목회와설교예전</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/iEMhoo3ao" target="_blank" class="subject-link">목회와영성</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/YM6dNGNJ9" target="_blank" class="subject-link">목회와선교</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/khItihx6V" target="_blank" class="subject-link">목회와사회복지</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/eTDmgvq20" target="_blank" class="subject-link">목회와교육</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/hp1X9vAi8" target="_blank" class="subject-link">장로교회사</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/v88hiPwOR" target="_blank" class="subject-link">신약학</a></li>
-            <li><a href="http://yfloavmotj9hz8g2ivvxyqpfin2ciap.quickconnect.to/sharing/mMkLC43EI" target="_blank" class="subject-link">교회음악</a></li>
-        </ul>
-    </article>
-</div>
-</main>
-<footer class="simple-footer">
+<main class="fade-in"><div class="page-header"><h2>협력·제안</h2></div><div class="container page-content-area shadow-sm"><section class="intro-section"><h3>협력·제안</h3><p>치매 돌봄과 평생건강을 위한 정보 교류와 협력 아이디어를 제안해 주세요.</p></section><div class="role-list"><article class="role-card"><h4>협력 주제</h4><p>돌봄 정보, 보호자 소통, 건강관리와 지역사회 연결에 관한 제안을 남길 수 있습니다.</p></article><article class="role-card"><h4>제안 방법</h4><p>기관명, 제안 목적, 주요 내용과 회신 연락처를 알려주세요.</p><a href="../../online_service.html">자세히 보기 ↗</a></article><article class="role-card"><h4>협의 절차</h4><p>구체적인 협력 범위와 진행 가능 여부는 별도 협의를 통해 확인합니다.</p></article></div><section class="intro-section" style="margin-top:40px"><h3>돌봄·건강관리 상담</h3><p>상황에 맞는 이용 방법과 지원 가능 범위는 상담으로 확인해 주세요.</p><a class="btn-primary" href="../../online_service.html">상담·문의하기</a></section></div></main>
+       <footer class="simple-footer">
         <div class="container">
             <a class="simple-footer-brand" href="../../index.html">
                 <img src="../../assets/images/site-logo.png" alt="연구원 로고" width="56" height="56">
@@ -253,6 +60,7 @@
             <p class="simple-footer-copyright">&copy; 2026 GTCC Institute for Well-Aging and Lifelong Health.<br>All rights reserved.</p>
         </div>
     </footer>
-    
+
+    <script src="../../js/site.js?v=20261105-content"></script>
 </body>
 </html>

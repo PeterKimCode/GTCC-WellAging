@@ -64,16 +64,16 @@
                     signal: controller.signal,
                     body: JSON.stringify({
                         access_key: WEB3FORMS_ACCESS_KEY,
-                        subject: '[GTCC Institute for Well-Aging and Lifelong Health] 새로운 입학상담 신청',
-                        from_name: 'GTCC Institute for Well-Aging and Lifelong Health 입학상담',
+                        subject: '[GTCC Institute for Well-Aging and Lifelong Health] 새로운 돌봄·건강관리 상담 신청',
+                        from_name: 'GTCC Institute for Well-Aging and Lifelong Health 돌봄·건강관리 상담',
                         name, email, replyto: email, botcheck: false,
-                        message: `GTCC Institute for Well-Aging and Lifelong Health 입학상담 신청\n\n이름:\n${name}\n\n연락처:\n${phone}\n\n이메일:\n${email}\n\n문의사항:\n${message}\n\n접수 페이지:\nGTCC Institute for Well-Aging and Lifelong Health 홈페이지`
+                        message: `GTCC Institute for Well-Aging and Lifelong Health 돌봄·건강관리 상담 신청\n\n이름:\n${name}\n\n연락처:\n${phone}\n\n이메일:\n${email}\n\n문의사항:\n${message}\n\n접수 페이지:\nGTCC Institute for Well-Aging and Lifelong Health 홈페이지`
                     })
                 });
                 const result = await response.json();
                 if (!response.ok || result.success !== true) throw new Error('Submission failed');
                 status.dataset.state = 'success';
-                status.textContent = '입학상담 신청이 정상적으로 접수되었습니다.\n확인 후 빠른 시간 내에 연락드리겠습니다.';
+                status.textContent = '돌봄·건강관리 상담 신청이 정상적으로 접수되었습니다.\n확인 후 빠른 시간 내에 연락드리겠습니다.';
                 consultForm.reset();
                 window.alert(status.textContent);
             } catch {
