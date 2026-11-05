@@ -12,4 +12,4 @@ for (const [file, page] of Object.entries(pages)) {
   fs.mkdirSync(path.dirname(destination),{recursive:true});
   fs.writeFileSync(destination,html.trimEnd()+'\n','utf8');
 }
-console.log('Built '+Object.keys(pages).length+' care and health pages.');
+console.log('Built '+Object.keys(pages).length+' research institute and academy pages.');

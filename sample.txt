@@ -1,3 +1,4 @@
 GTCC Institute for Well-Aging and Lifelong Health
-치매 돌봄 · 일상 건강관리 · 인지·정서 지원 · 가족·보호자 지원
+부설 연구소장: 이성종 목사
+노인학 · 웰에이징 · 평생건강 · 노인학 아카데미 · 온라인 교재
 홈페이지 원고는 content/site.json에서 관리합니다.
