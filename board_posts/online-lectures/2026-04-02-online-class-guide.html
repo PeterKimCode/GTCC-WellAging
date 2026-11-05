@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교과목 다운로드 |GTCC Institute for Well-Aging and Lifelong Health</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="icon" type="image/png" href="../../assets/images/site-logo.png">
+    <link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+<style>
+    .subject-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: 'Malgun Gothic', sans-serif;
+    }
+
+    .subject-header {
+        border-bottom: 2px solid #333;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    /* 가로 3등분을 위한 Flexbox 설정 */
+    .subject-list {
+        display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        gap: 15px; /* 항목 간 간격 */
+    }
+
+    .subject-list li {
+        /* 전체 너비에서 간격을 제외하고 3등분 (약 33.3%) */
+        flex: 0 1 calc(33.333% - 10px);
+        box-sizing: border-box;
+    }
+
+    .subject-link {
+        display: block;
+        padding: 12px 15px;
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-left: 4px solid #007bff; /* 포인트 컬러 */
+        text-decoration: none;
+        color: #333 !important;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        text-align: center;
+    }
+
+    .subject-link:hover {
+        background-color: #007bff;
+        color: #fff !important;
+        border-color: #007bff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    /* 모바일 대응: 화면이 작아지면 1열로 변경 */
+    @media (max-width: 768px) {
+        .subject-list li {
+            flex: 0 1 100%;
+        }
+    }
+</style>
+<style>
+        /* 기본 리셋 & Pretendard 폰트 설정 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Pretendard Variable", 'Noto Sans KR', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            color: #333;
+            background-color: #f8fafc;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        /* 입체 책 및 서가 스타일 */
+        .book-card { 
+            perspective: 1000px; 
+            transition: all 0.3s ease; 
+        }
+        .book-inner {
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            transform-style: preserve-3d;
+            border-radius: 4px 12px 12px 4px;
+            box-shadow: -5px 8px 15px rgba(0, 0, 0, 0.15), inset 4px 0 6px rgba(255, 255, 255, 0.3);
+        }
+        .book-card:hover .book-inner {
+            transform: translateY(-8px) rotateY(-8px);
+            box-shadow: -10px 15px 25px rgba(0, 0, 0, 0.25), inset 4px 0 8px rgba(255, 255, 255, 0.4);
+        }
+        .book-spine-line {
+            position: absolute; left: 10px; top: 0; bottom: 0; width: 2px;
+            background: rgba(0, 0, 0, 0.15); box-shadow: 1px 0 1px rgba(255, 255, 255, 0.2);
+        }
+        .shelf-wood {
+            background: linear-gradient(180deg, #8B5A2B 0%, #5C3A17 100%);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3), inset 0 2px 2px rgba(255,255,255,0.2);
+        }
+
+        /* 모달 스타일 */
+        .modal-backdrop { 
+            background-color: rgba(15, 23, 42, 0.65); 
+            backdrop-filter: blur(4px); 
+        }
+        .modal-content { 
+            animation: modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        @keyframes modalSlideUp {
+            from { opacity: 0; transform: translateY(20px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <header class="top-nav">
+        <div class="container top-nav-inner flex-between">
+            <a class="logo-area" href="../../index.html">
+                <img src="../../assets/images/site-logo.png" alt="학교 로고" class="main-logo-image">
+                <div class="logo-text">
+                    <h1>GTCC Institute for Well-Aging and Lifelong Health</h1>
+                    <span>General Trias College of Cavite</span>
+                </div>
+            </a>
+            <div class="top-links-area">
+                <nav class="top-links">
+                    <a href="../../index.html">Home</a>
+                    <a href="../../sitemap.html">사이트맵</a>
+                    <span class="lang-selector">ENG</span>
+                </nav>
+                <div class="search-wrap">
+                    <input type="text" placeholder="검색어를 입력하세요">
+                    <button type="button" aria-label="검색">
+                        <i class="ph-light ph-magnifying-glass"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <nav class="main-category-nav">
+        <div class="container nav-icons-wrap">
+            <details class="nav-item nav-dropdown">
+                <summary class="nav-icon-link nav-dropdown-toggle">
+                    <div class="icon-box"><i class="ph-light ph-bank"></i></div>
+                    <span>학교소개</span>
+                </summary>
+                <div class="nav-dropdown-menu">
+                    <a href="/intro_chairman.html">총회장 인사말</a>
+                    <a href="/intro_greeting.html">총장 인사말</a>
+                    <a href="/intro_ideology.html">교육이념</a>
+                    <a href="/intro_history.html">연혁</a>
+                    <a href="/intro_org.html">조직도</a>
+                    <a href="/intro_faculty.html">교수 소개</a>
+                    <a href="/intro_sap.html">특임교수 소개</a>
+                    <a href="/intro_school.html">인준신학교</a>
+                </div>
+            </details>
+            <a href="../../admissions_guideline.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-graduation-cap"></i></div><span>입학안내</span></a>
+            <a href="../../degree_bachelor.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-student"></i></div><span>학과소개</span></a>
+            <a href="../../academic_info.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-calendar-blank"></i></div><span>학사안내</span></a>
+            <a href="../../campus_life.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-users"></i></div><span>대학생활</span></a>
+            <a href="../../research_intro.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-microscope"></i></div><span>학술연구</span></a>
+            <a href="../../online_service.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-desktop"></i></div><span>온라인서비스</span></a>
+        </div>
+    </nav>
+
+
+
+    <!-- ==========================================
+         [디지털 도서관 / 교과목 서가 단독 메인 영역]
+    ========================================== -->
+    <main class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- 검색 및 카테고리 필터 -->
+        <section class="mb-8">
+            <div class="text-center max-w-2xl mx-auto mb-6">
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">교과목 자료 &amp; 전자 도서관</h2>
+                <p class="text-slate-600 text-sm sm:text-base">GTCC Institute for Well-Aging and Lifelong Health의 신학 교재 및 학술 자료를 확인하고 구입하실 수 있습니다.</p>
+            </div>
+
+            <div class="bg-white p-4 sm:p-6 rounded-2xl shadow-sm border border-slate-200/80 mb-6">
+                <!-- 검색창 -->
+                <div class="flex flex-col md:flex-row gap-4 mb-4">
+                    <div class="relative flex-grow">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        <input type="text" id="search-input" placeholder="교재명, 저자, 판매처 등으로 검색하세요..." class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-sm" />
+                    </div>
+                </div>
+
+                <!-- 카테고리 필터 버튼 -->
+                <div class="flex items-center gap-2 overflow-x-auto pb-1 text-sm scrollbar-none" id="category-filters">
+                    <button data-category="all" class="filter-btn active px-4 py-2 rounded-lg bg-indigo-600 text-white font-medium shadow-sm transition-all whitespace-nowrap">전체</button>
+                    <button data-category="성서학" class="filter-btn px-4 py-2 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium transition-all whitespace-nowrap">성서학 (구약/신약)</button>
+                    <button data-category="조직/역사" class="filter-btn px-4 py-2 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium transition-all whitespace-nowrap">조직/역사신학</button>
+                    <button data-category="실천/목회" class="filter-btn px-4 py-2 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium transition-all whitespace-nowrap">실천/목회신학</button>
+                    <button data-category="선교/상담" class="filter-btn px-4 py-2 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium transition-all whitespace-nowrap">선교/상담/음악</button>
+                    <button data-category="일반참고" class="filter-btn px-4 py-2 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium transition-all whitespace-nowrap">일반참고</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 입체 서가 그리드 영역 -->
+        <section class="relative">
+            <div id="no-results" class="hidden text-center py-16 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                <i class="fa-solid fa-book-open text-4xl text-slate-300 mb-3"></i>
+                <h3 class="text-lg font-bold text-slate-700">검색 결과가 없습니다</h3>
+            </div>
+            <div id="bookshelf-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 sm:gap-8 pb-12"></div>
+        </section>
+    </main>
+
+    <!-- 도서 상세 모달 팝업 -->
+    <div id="book-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden modal-backdrop">
+        <div class="bg-white w-full max-w-xl rounded-2xl shadow-2xl overflow-hidden modal-content relative flex flex-col md:flex-row max-h-[90vh]">
+            <button id="modal-close-btn" class="absolute top-4 right-4 z-10 w-9 h-9 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div id="modal-cover-bg" class="w-full md:w-5/12 p-8 flex items-center justify-center relative overflow-hidden">
+                <div class="relative z-10 w-36 aspect-[3/4] rounded-r-lg shadow-2xl overflow-hidden border-l-4 border-black/20">
+                    <img id="modal-cover-img" src="" alt="Book Cover" class="w-full h-full object-cover" />
+                </div>
+            </div>
+
+            <div class="w-full md:w-7/12 p-6 flex flex-col justify-between overflow-y-auto">
+                <div>
+                    <div class="flex items-center space-x-2 mb-2">
+                        <span id="modal-category" class="px-2.5 py-1 text-xs font-semibold bg-indigo-100 text-indigo-700 rounded-full">카테고리</span>
+                        <span id="modal-store-tag" class="px-2.5 py-1 text-xs font-semibold bg-slate-100 text-slate-600 rounded-full">판매처</span>
+                    </div>
+
+                    <h3 id="modal-title" class="text-xl font-bold text-slate-900 mb-2 leading-snug">도서 제목</h3>
+                    <p id="modal-author" class="text-sm text-slate-600 font-medium mb-4">저자: 저자명</p>
+
+                    <div class="border-t border-slate-100 pt-4 mb-4">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">교재 안내</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            본 교재는 신학 및 목회 실무를 위한 전문 서적으로, 하단 구매 버튼을 클릭하시면 해당 서점으로 이동합니다.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-100 flex items-center space-x-3">
+                    <a id="modal-buy-btn" href="#" target="_blank" rel="noopener noreferrer" class="flex-grow py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl shadow-lg shadow-indigo-200 transition-all flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span id="modal-buy-btn-text">도서 구매 및 상세보기</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==========================================
+         자바스크립트 (도서 데이터 처리 및 랜더링)
+    ========================================== -->
+    <script>
+        // 새로운 책을 추가할 때 category 속성을 수동으로 적어주면 해당 분류로 지정됩니다.
+        // category를 명시하지 않은 경우 제목 키워드 분석을 통해 자동 설정되며, 매칭되지 않는 경우 기본값 '일반참고'로 분류됩니다.
+        const rawBooks = [
+            { id: 1, name: "선교학", url: "https://www.coupang.com/vp/products/9607317056", author: "김낙신 저", store: "쿠팡" },
+            { id: 2, name: "신약개론", url: "https://www.coupang.com/vp/products/9607328133", author: "김낙신 저", store: "쿠팡" },
+            { id: 3, name: "구약개론", url: "https://www.coupang.com/vp/products/9607333788", author: "김낙신 저", store: "쿠팡" },
+            { id: 4, name: "실천신학", url: "https://product.kyobobook.co.kr/detail/S000220846094", author: "김낙신 저", store: "교보문고" },
+            { id: 5, name: "공관복음", url: "https://bookk.co.kr/bookStore/6a7c72fead34f1436e69b4d5", author: "김낙신 저", store: "부크크" },
+            { id: 6, name: "청소년 영성 상담학", url: "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=397732434&srsltid=AU7gw4XnRr9wp0KHpodXO-A0hneEjpeuuI5qBXm_PL2PsJIIvkJbXGVO", author: "김동수 저", store: "알라딘" },
+            { id: 7, name: "기독교영성", url: "https://product.kyobobook.co.kr/detail/S000220931824", author: "김낙신 저", store: "교보문고" },
+            { id: 8, name: "목회학개론", url: "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=401128981&srsltid=AU7gw4X1q1h75z7dWVjfDJvL7IXKBfytnj488z6k9Tg0BfeeGolrX_-F", author: "김낙신 저", store: "알라딘" },
+            { id: 9, name: "모세오경", url: "https://www.yes24.com/product/goods/195817473", author: "김낙신 저", store: "YES24" },
+            { id: 10, name: "역사신학", url: "https://bookk.co.kr/bookStore/6a87c949d758179124805b9a", author: "김낙신 저", store: "부크크" },
+            { id: 11, name: "현대신학", url: "https://bookk.co.kr/bookStore/6a87ca7aaa98b26c8765a6b8", author: "김낙신 저", store: "부크크" },
+            { id: 12, name: "교회사", url: "https://bookk.co.kr/bookStore/6a87cbee483b5341920d3f2c", author: "김낙신 저", store: "부크크" },
+            { id: 13, name: "기독교상담학", url: "https://www.coupang.com/vp/products/9641561471", author: "이영희 저", store: "쿠팡" },
+            { id: 14, name: "목회상담학", url: "https://product.kyobobook.co.kr/detail/S000221049469", author: "백만숙 저", store: "교보문고" },
+            { id: 15, name: "조직신학개론", url: "https://product.kyobobook.co.kr/detail/S000221265186", author: "김낙신 저", store: "교보문고" },
+            { id: 16, name: "예배학개론", url: "https://bookk.co.kr/bookStore/6a8e39bb699b7758873f7b7f", author: "김낙신 저", store: "부크크" },
+            { id: 17, name: "설교학개론", url: "https://product.kyobobook.co.kr/detail/S000221265188", author: "김낙신 저", store: "교보문고" },
+            { id: 18, name: "교회음악개론", url: "https://bookk.co.kr/bookStore/6a8e3d72488b034a8ec8b14e", author: "이자경 저", store: "부크크" },
+            { id: 19, name: "장로교회의사상과 역사", url: "https://www.ypbooks.co.kr/books/202609158971559925", author: "김낙신 저", store: "영풍문고" },
+            { id: 20, name: "예언서주해", url: "https://bookk.co.kr/bookStore/6a9deb2332f0a0a48d1c4bc4", author: "김낙신 저", store: "부크크" },
+            { id: 21, name: "신약성서학 개론", url: "https://bookk.co.kr/bookStore/6a8e3ad1dfbe6133a1e01543", author: "김낙신 저", store: "부크크" },
+            { id: 22, name: "함께 키우는 영유아 돌봄", url: "https://www.coupang.com/vp/products/9478819215", author: "최세라 저", store: "쿠팡", category: "일반참고" },
+            { id: 23, name: "목회학", url: "https://www.ypbooks.co.kr/books/202609158971536863", author: "김낙신 저", store: "영풍문고" },
+            { id: 24, name: "개혁신학", url: "https://bookk.co.kr/bookStore/6aa1f034b5fa6270efc89955", author: "김낙신 저", store: "부크크" },
+            { id: 25, name: "한국교회 역사와 영성", url: "https://bookk.co.kr/bookStore/6aa1ef040c4bf855eb448b25", author: "김낙신 저", store: "부크크" },
+            { id: 26, name: "장로교 행정론", url: "https://www.ypbooks.co.kr/books/202609158971345735", author: "김낙신 저", store: "영풍문고" },
+            { id: 27, name: "개혁주의 조직신학 입문 2", url: "https://bookk.co.kr/bookStore/6aab3f04550dd177e3755144", author: "김낙신 저", store: "부크크" },
+            { id: 28, name: "프롬프트 엔지니어링의 이해", url: "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=387613807", author: "김태영 저", store: "알라딘" },
+            { id: 29, name: "프롬프트 엔지니어링 실전", url: "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=387614099", author: "김태영 저", store: "알라딘" },
+            { id: 30, name: "통합상담의기술", url: "https://product.kyobobook.co.kr/detail/S000220517101", author: "김혜지 저", store: "교보문고" },
+            { id: 31, name: "교회절기", url: "https://www.ypbooks.co.kr/books/202609292783977090", author: "김낙신 저", store: "영풍문고" },
+            { id: 32, name: "대학영어", url: "https://bookk.co.kr/bookStore/6aac85746b2532af93ed83f1", author: "JONALYN KIM 저", store: "부크크" },
+            { id: 33, name: "개혁주의 조직신학 입문 1", url: "https://bookk.co.kr/bookStore/6aabb206b99de3329a453f65", author: "김낙신 저", store: "부크크" },
+            { id: 34, name: "목회와 선교", url: "https://bookk.co.kr/bookStore/6ab88f584ccf748384b41b46", author: "김낙신 저", store: "부크크" },
+            { id: 35, name: "목회와 사회복지", url: "https://bookk.co.kr/bookStore/6ac061c25a95e4857ba2c444", author: "김낙신 저", store: "부크크" },
+            { id: 36, name: "목회와 영성", url: "https://bookk.co.kr/bookStore/6ac88398fe0dc1cc042c6ddc", author: "김낙신 저", store: "부크크" },
+            { id: 37, name: "목회와 상담", url: "https://bookk.co.kr/bookStore/6ac884b0e7908c18fb21ccb6", author: "김낙신 저", store: "부크크" },
+            { id: 38, name: "목회와 설교예전", url: "https://bookk.co.kr/bookStore/6acf1fe3ee1079e66f3b77a7", author: "김낙신 저", store: "부크크" },
+            { id: 39, name: "목회와 교육", url: "https://bookk.co.kr/bookStore/6acf211cbbcba6fc2fb502be", author: "김낙신 저", store: "부크크" },
+            { id: 38, name: "신학의 길 총정리 1권(영문판)", url: "https://bookk.co.kr/bookStore/6ad467977b2c8d2c253f9805", author: "김낙신 저", store: "부크크" },
+            { id: 39, name: "신학의 길 총정리 2권(영문판)", url: "https://bookk.co.kr/bookStore/6ad468b683a633ddc5f2a324", author: "김낙신 저", store: "부크크" }
+          ];
+
+        const storeBadgeStyles = {
+            "부크크": "bg-emerald-600/80 text-white",
+            "쿠팡": "bg-red-600/80 text-white",
+            "교보문고": "bg-sky-600/80 text-white",
+            "YES24": "bg-blue-600/80 text-white",
+            "알라딘": "bg-pink-600/80 text-white",
+            "기타": "bg-slate-700/80 text-white"
+        };
+
+        const colors = [
+            "from-blue-700 to-indigo-900",
+            "from-amber-700 to-stone-900",
+            "from-emerald-700 to-teal-950",
+            "from-purple-700 to-slate-900",
+            "from-rose-700 to-red-950",
+            "from-cyan-700 to-slate-900",
+            "from-sky-700 to-indigo-950"
+        ];
+
+        function detectStore(url) {
+            if (!url) return "판매처";
+            const lUrl = url.toLowerCase();
+            if (lUrl.includes("coupang")) return "쿠팡";
+            if (lUrl.includes("kyobobook")) return "교보문고";
+            if (lUrl.includes("yes24")) return "YES24";
+            if (lUrl.includes("aladin")) return "알라딘";
+            if (lUrl.includes("bookk")) return "부크크";
+            return "기타";
+        }
+
+        const booksData = rawBooks.map((book, index) => {
+            // 수동으로 category가 작성되어 있으면 우선 반영
+            let category = book.category;
+
+            // category가 명시되지 않은 경우 규칙에 맞춰 자동 지정
+            if (!category) {
+                if (["구약개론", "신약개론", "공관복음", "모세오경", "예언서주해", "신약성서학 개론"].some(k => book.name.includes(k))) {
+                    category = "성서학";
+                } else if (["조직신학개론", "역사신학", "현대신학", "교회사", "장로교회의사상과 역사", "개혁신학", "한국교회 역사와 영성", "개혁주의 조직신학 입문 2"].some(k => book.name.includes(k))) {
+                    category = "조직/역사";
+                } else if (["선교학", "기독교상담학", "목회상담학", "교회음악개론", "기독교영성", "통합상담의기술"].some(k => book.name.includes(k))) {
+                    category = "선교/상담";
+                } else if (["실천신학", "목회학개론", "예배학개론", "설교학개론", "목회학", "장로교 행정론"].some(k => book.name.includes(k))) {
+                    category = "실천/목회";
+                } else {
+                    category = "일반참고"; // 매칭 조건이 없는 신규 서적 기본값
+                }
+            }
+
+            const storeName = book.store && book.store.trim() !== "" ? book.store : detectStore(book.url);
+            const storeBadgeClass = storeBadgeStyles[storeName] || storeBadgeStyles["기타"];
+
+            return {
+                ...book,
+                title: book.name,
+                category: category,
+                store: storeName,
+                storeBadgeClass: storeBadgeClass,
+                author: book.author,
+                coverColor: colors[index % colors.length],
+                icon: "fa-book"
+            };
+        });
+
+        let bookshelfGrid, searchInput, categoryFilters, noResults;
+        let bookModal, modalCloseBtn, modalCoverBg, modalCoverImg, modalCategory, modalStoreTag, modalTitle, modalAuthor, modalBuyBtn, modalBuyBtnText;
+
+        let currentCategory = 'all';
+        let currentSearchTerm = '';
+
+        function init() {
+            bookshelfGrid = document.getElementById('bookshelf-grid');
+            searchInput = document.getElementById('search-input');
+            categoryFilters = document.getElementById('category-filters');
+            noResults = document.getElementById('no-results');
+
+            bookModal = document.getElementById('book-modal');
+            modalCloseBtn = document.getElementById('modal-close-btn');
+            modalCoverBg = document.getElementById('modal-cover-bg');
+            modalCoverImg = document.getElementById('modal-cover-img');
+            modalCategory = document.getElementById('modal-category');
+            modalStoreTag = document.getElementById('modal-store-tag');
+            modalTitle = document.getElementById('modal-title');
+            modalAuthor = document.getElementById('modal-author');
+            modalBuyBtn = document.getElementById('modal-buy-btn');
+            modalBuyBtnText = document.getElementById('modal-buy-btn-text');
+
+            renderBooks();
+            setupEventListeners();
+        }
+
+        function renderBooks() {
+            if (!bookshelfGrid) return;
+            const filteredBooks = booksData.filter(book => {
+                const matchesCategory = currentCategory === 'all' || book.category === currentCategory;
+                const matchesSearch = book.title.toLowerCase().includes(currentSearchTerm.toLowerCase()) || 
+                                      book.author.toLowerCase().includes(currentSearchTerm.toLowerCase()) ||
+                                      book.store.toLowerCase().includes(currentSearchTerm.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+
+            bookshelfGrid.innerHTML = '';
+
+            if (filteredBooks.length === 0) {
+                if (noResults) noResults.classList.remove('hidden');
+            } else {
+                if (noResults) noResults.classList.add('hidden');
+                filteredBooks.forEach(book => {
+                    bookshelfGrid.appendChild(createBookCard(book));
+                });
+            }
+        }
+
+        function createBookCard(book) {
+            const card = document.createElement('div');
+            card.className = 'book-card cursor-pointer group';
+            card.onclick = () => openModal(book);
+
+            card.innerHTML = `
+                <div class="relative mb-3">
+                    <div class="book-inner aspect-[3/4] w-full bg-gradient-to-br ${book.coverColor} p-3.5 flex flex-col justify-between text-white relative overflow-hidden">
+                        <div class="book-spine-line"></div>
+                        <div class="flex justify-between items-start pl-2 z-10">
+                            <span class="text-[10px] font-semibold uppercase tracking-wider ${book.storeBadgeClass} px-1.5 py-0.5 rounded shadow-sm">${book.store}</span>
+                            <i class="fa-solid ${book.icon} text-xs opacity-70"></i>
+                        </div>
+                        <div class="pl-2 my-auto z-10">
+                            <h3 class="font-bold text-sm leading-tight drop-shadow-md line-clamp-2 mb-1">${book.title}</h3>
+                            <p class="text-[10px] opacity-80 font-light truncate">${book.author}</p>
+                        </div>
+                        <div class="pl-2 flex justify-between items-end text-[10px] opacity-80 z-10">
+                            <span class="text-[9px] bg-white/20 px-1 rounded">${book.category}</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] group-hover:scale-125 transition-transform"></i>
+                        </div>
+                    </div>
+                    <div class="shelf-wood h-3 w-[106%] -ml-[3%] rounded-sm mt-1"></div>
+                </div>
+                <div class="text-center px-1">
+                    <h4 class="font-medium text-xs text-slate-800 truncate group-hover:text-indigo-600 transition-colors">${book.title}</h4>
+                    <p class="text-[11px] text-slate-400 truncate">${book.author}</p>
+                </div>
+            `;
+            return card;
+        }
+
+        function openModal(book) {
+            modalCategory.textContent = book.category;
+            modalStoreTag.textContent = book.store;
+            modalTitle.textContent = book.title;
+            modalAuthor.textContent = `저자: ${book.author}`;
+            modalBuyBtn.href = book.url;
+            if (modalBuyBtnText) {
+                modalBuyBtnText.textContent = `${book.store}에서 구매하기`;
+            }
+
+            modalCoverBg.className = `w-full md:w-5/12 p-8 flex items-center justify-center bg-gradient-to-br ${book.coverColor} relative overflow-hidden`;
+
+            const canvas = document.createElement('canvas');
+            canvas.width = 300;
+            canvas.height = 400;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#0f172a';
+            ctx.fillRect(0, 0, 300, 400);
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 22px "Noto Sans KR"';
+            ctx.textAlign = 'center';
+
+            const words = book.title.split(' ');
+            let line = '';
+            let y = 180;
+            for (let n = 0; n < words.length; n++) {
+                let testLine = line + words[n] + ' ';
+                if (testLine.length > 8 && n > 0) {
+                    ctx.fillText(line, 150, y);
+                    line = words[n] + ' ';
+                    y += 30;
+                } else {
+                    line = testLine;
+                }
+            }
+            ctx.fillText(line, 150, y);
+
+            ctx.font = '13px "Noto Sans KR"';
+            ctx.fillStyle = '#94a3b8';
+            ctx.fillText(book.author, 150, y + 40);
+
+            modalCoverImg.src = canvas.toDataURL();
+            bookModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            bookModal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function setupEventListeners() {
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    currentSearchTerm = e.target.value.trim();
+                    renderBooks();
+                });
+            }
+
+            if (categoryFilters) {
+                categoryFilters.addEventListener('click', (e) => {
+                    const btn = e.target.closest('.filter-btn');
+                    if (!btn) return;
+
+                    document.querySelectorAll('.filter-btn').forEach(b => {
+                        b.classList.remove('active', 'bg-indigo-600', 'text-white');
+                        b.classList.add('bg-slate-100', 'text-slate-600');
+                    });
+
+                    btn.classList.add('active', 'bg-indigo-600', 'text-white');
+                    btn.classList.remove('bg-slate-100', 'text-slate-600');
+
+                    currentCategory = btn.dataset.category;
+                    renderBooks();
+                });
+            }
+
+            if (modalCloseBtn) {
+                modalCloseBtn.addEventListener('click', closeModal);
+            }
+
+            if (bookModal) {
+                bookModal.addEventListener('click', (e) => {
+                    if (e.target === bookModal) {
+                        closeModal();
+                    }
+                });
+            }
+
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !bookModal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+<footer class="simple-footer">
+        <div class="container">
+            <a class="simple-footer-brand" href="../../index.html">
+                <img src="../../assets/images/site-logo.png" alt="연구원 로고" width="56" height="56">
+                <span>GTCC Institute for Well-Aging and Lifelong Health</span>
+            </a>
+            <p>GTCC Institute for Well-Aging and Lifelong Health</p>
+            <address>(08227) 서울 구로구 중앙로1길 42<br>(고척동, 일이삼전자타운) 1동 608호</address>
+            <p>Tel. <a href="tel:0316778428">(031) 677-8428</a><br>Email. <a href="mailto:hanyoungcc@naver.com">hanyoungcc@naver.com</a></p>
+            <p class="simple-footer-copyright">&copy; 2026 GTCC Institute for Well-Aging and Lifelong Health.<br>All rights reserved.</p>
+        </div>
+    </footer>
+    
+</body>
+</html>

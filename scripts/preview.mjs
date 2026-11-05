@@ -3,13 +3,13 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
-const types = { '.html':'text/html; charset=utf-8', '.css':'text/css; charset=utf-8', '.js':'text/javascript; charset=utf-8', '.png':'image/png' };
+const types = { '.html':'text/html; charset=utf-8', '.css':'text/css; charset=utf-8', '.js':'text/javascript; charset=utf-8', '.png':'image/png', '.jpg':'image/jpeg', '.json':'application/json; charset=utf-8' };
 http.createServer(async (req,res) => {
   try {
     const pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
     const relative = pathname === '/' ? 'index.html' : pathname.slice(1);
     const filename = path.resolve(root, relative);
-    const allowed = /^(?:[a-z-]+\.html|(?:css|js|assets\/images)\/[a-zA-Z0-9./_-]+)$/.test(relative);
+    const allowed = /^[^/]+\.(?:html|jpg)$/.test(relative) || /^(?:css|js|assets\/images|board_data|board_posts)\//.test(relative);
     if (!allowed || relative.split('/').some(part => part.startsWith('.')) || !filename.startsWith(root + path.sep)) { res.writeHead(404); res.end('Not found'); return; }
     const body = await fs.readFile(filename);
     res.writeHead(200, { 'Content-Type': types[path.extname(filename)] || 'application/octet-stream', 'Cache-Control':'no-cache' });

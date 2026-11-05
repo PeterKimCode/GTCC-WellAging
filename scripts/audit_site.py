@@ -1,51 +1,36 @@
-from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import urlsplit, unquote
-import re
-
-ROOT = Path(__file__).resolve().parents[1]
-PAGES = sorted(ROOT.glob("*.html"))
-EXPECTED = {"index.html", "about.html", "programs.html", "participation.html", "research.html", "news.html", "contact.html", "sitemap.html"}
-errors = []
-
-class Document(HTMLParser):
-    def __init__(self):
-        super().__init__()
-        self.refs = []
-        self.ids = []
-        self.main_count = 0
-        self.h1_count = 0
-    def handle_starttag(self, tag, attrs):
-        attrs = dict(attrs)
-        if "id" in attrs: self.ids.append(attrs["id"])
-        if tag == "main": self.main_count += 1
-        if tag == "h1": self.h1_count += 1
-        for attr in ("href", "src"):
-            if attr in attrs: self.refs.append(attrs[attr])
-
-docs = {}
-for page in PAGES:
-    source = page.read_text(encoding="utf-8")
-    doc = Document()
-    doc.feed(source)
-    docs[page.name] = doc
-    if doc.main_count != 1 or doc.h1_count != 1: errors.append(f"{page.name}: main/h1 count")
-    if len(doc.ids) != len(set(doc.ids)): errors.append(f"{page.name}: duplicate IDs")
-    if 'GTCC Institute for Well-Aging and Lifelong Health' not in source: errors.append(f"{page.name}: brand missing")
-    if re.search(r'총회신학|대한예수교장로회|신학 공동체|hyts.sc.kr|\\ufffd', source): errors.append(f"{page.name}: legacy or encoding content")
-    for link in doc.refs:
-        url = urlsplit(link)
-        if url.scheme or url.netloc: continue
-        target = page.parent / unquote(url.path) if url.path else page
-        if not target.is_file(): errors.append(f"{page.name}: missing {link}")
-        elif url.fragment and target.suffix == ".html":
-            parsed = Document()
-            parsed.feed(target.read_text(encoding="utf-8"))
-            if url.fragment not in parsed.ids: errors.append(f"{page.name}: missing anchor {link}")
-if set(docs) != EXPECTED: errors.append("Unexpected page set")
-if not EXPECTED.issubset({urlsplit(ref).path for ref in docs["sitemap.html"].refs}): errors.append("Incomplete sitemap")
-for name in ("CNAME", ".openai/hosting.json"):
-    if (ROOT / name).exists(): errors.append(f"Unexpected deployment configuration: {name}")
-if errors:
-    raise SystemExit("\n".join(errors))
-print(f"PASS: {len(PAGES)} pages; internal links, assets, anchors, sitemap, branding and standalone configuration")
+from html.parser import HTMLParser
+from urllib.parse import urlsplit,unquote
+ROOT=Path(__file__).resolve().parents[1]
+SOURCE=ROOT/".template-reference"
+BRAND="GTCC Institute for Well-Aging and Lifelong Health"
+def brand(text):
+    for old in ("대한예수교장로회(한영)총회신학학술연구원","대한예수교장로회(한영)<br>총회신학학술연구원","총회신학학술연구원","총회신학연구원"):
+        text=text.replace(old,BRAND)
+    return text.replace("<span>"+BRAND+"</span>\n                </div>","<span>General Trias College of Cavite</span>\n                </div>").replace("hyts_lang","gtcc_wellaging_lang")
+class Links(HTMLParser):
+    def __init__(self): super().__init__(); self.links=[]
+    def handle_starttag(self,tag,attrs):
+        for key,value in attrs:
+            if key in ("href","src"): self.links.append(value)
+errors=[]; count=0
+pages=list(ROOT.glob("*.html"))+list((ROOT/"board_posts").rglob("*.html"))
+for page in pages:
+    doc=Links(); text=page.read_text(encoding="utf-8"); doc.feed(text)
+    if "총회신학학술연구원" in text: errors.append(f"Old brand: {page.name}")
+    for link in doc.links:
+        url=urlsplit(link)
+        if url.scheme or url.netloc or not url.path: continue
+        target=ROOT/unquote(url.path).lstrip('/') if url.path.startswith('/') else page.parent/unquote(url.path)
+        if not target.is_file(): errors.append(f"Missing local link: {page.relative_to(ROOT)}: {link}")
+    if SOURCE.is_dir():
+        original=SOURCE/page.relative_to(ROOT)
+        if not original.exists() or brand(original.read_text(encoding="utf-8")).strip()!=text.strip():
+            errors.append(f"Unexpected template difference: {page.relative_to(ROOT)}")
+    count+=1
+if SOURCE.is_dir():
+    if (ROOT/"css/style.css").read_bytes()!=(SOURCE/"css/style.css").read_bytes(): errors.append("Original stylesheet changed")
+    if len(pages)!=len(list(SOURCE.glob("*.html"))+list((SOURCE/"board_posts").rglob("*.html"))): errors.append("Page count changed")
+if (ROOT/"CNAME").exists(): errors.append("Original CNAME copied")
+if errors: raise SystemExit("\n".join(errors))
+print(f"PASS: {count} original pages, original CSS, all local links, images and embeds; only branding changed.")

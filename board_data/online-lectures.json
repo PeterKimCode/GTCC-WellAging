@@ -1,0 +1,15 @@
+{
+  "id": "online-lectures",
+  "title": "총회신학 학술 연구원 도서관",
+  "description": "각 학과의 교과목을 구입할수 있습니다",
+  "page": "board_online_lectures.html",
+  "posts": [
+    {
+      "title": "총회신학 학술 연구원 도서관",
+      "date": "2026-04-02",
+      "summary": "비대면 수업 접속 방법과 기본 이용 수칙을 안내합니다.",
+      "slug": "2026-04-02-online-class-guide",
+      "url": "board_posts/online-lectures/2026-04-02-online-class-guide.html"
+    }
+  ]
+}

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동영상 강의 다운로드 | GTCC Institute for Well-Aging and Lifelong Health</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="icon" type="image/png" href="../../assets/images/site-logo.png">
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <header class="top-nav">
+        <div class="container top-nav-inner flex-between">
+            <a class="logo-area" href="../../index.html">
+                <img src="../../assets/images/site-logo.png" alt="학교 로고" class="main-logo-image">
+                <div class="logo-text">
+                    <h1>GTCC Institute for Well-Aging and Lifelong Health</h1>
+                    <span>General Trias College of Cavite</span>
+                </div>
+            </a>
+            <div class="top-links-area">
+                <nav class="top-links">
+                    <a href="../../index.html">Home</a>
+                    <a href="../../sitemap.html">사이트맵</a>
+                    <span class="lang-selector">ENG</span>
+                </nav>
+                <div class="search-wrap">
+                    <input type="text" placeholder="검색어를 입력하세요">
+                    <button type="button" aria-label="검색">
+                        <i class="ph-light ph-magnifying-glass"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <nav class="main-category-nav">
+        <div class="container nav-icons-wrap">
+            <details class="nav-item nav-dropdown">
+                <summary class="nav-icon-link nav-dropdown-toggle">
+                    <div class="icon-box"><i class="ph-light ph-bank"></i></div>
+                    <span>학교소개</span>
+                </summary>
+                <div class="nav-dropdown-menu">
+                    <a href="/intro_chairman.html">총회장 인사말</a>
+                    <a href="/intro_greeting.html">총장 인사말</a>
+                    <a href="/intro_ideology.html">교육이념</a>
+                    <a href="/intro_history.html">연혁</a>
+                    <a href="/intro_org.html">조직도</a>
+                    <a href="/intro_faculty.html">교수 소개</a>
+                    <a href="/intro_sap.html">특임교수 소개</a>
+                    <a href="/intro_school.html">인준신학교</a>
+                </div>
+            </details>
+            <a href="../../admissions_guideline.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-graduation-cap"></i></div><span>입학안내</span></a>
+            <a href="../../degree_bachelor.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-student"></i></div><span>학과소개</span></a>
+            <a href="../../academic_info.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-calendar-blank"></i></div><span>학사안내</span></a>
+            <a href="../../campus_life.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-users"></i></div><span>대학생활</span></a>
+            <a href="../../research_intro.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-microscope"></i></div><span>학술연구</span></a>
+            <a href="../../online_service.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-desktop"></i></div><span>온라인서비스</span></a>
+        </div>
+    </nav>
+
+<style>
+    .subject-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: 'Malgun Gothic', sans-serif;
+    }
+
+    .subject-header {
+        border-bottom: 2px solid #333;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    /* 가로 3등분을 위한 Flexbox 설정 */
+    .subject-list {
+        display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        gap: 15px; /* 항목 간 간격 */
+    }
+
+    .subject-list li {
+        /* 전체 너비에서 간격을 제외하고 3등분 (약 33.3%) */
+        flex: 0 1 calc(33.333% - 10px);
+        box-sizing: border-box;
+    }
+
+    .subject-link {
+        display: block;
+        padding: 12px 15px;
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-left: 4px solid #007bff; /* 포인트 컬러 */
+        text-decoration: none;
+        color: #333 !important;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        text-align: center;
+    }
+
+    .subject-link:hover {
+        background-color: #007bff;
+        color: #fff !important;
+        border-color: #007bff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    /* 모바일 대응: 화면이 작아지면 1열로 변경 */
+    @media (max-width: 768px) {
+        .subject-list li {
+            flex: 0 1 100%;
+        }
+    }
+</style>
+
+<div class="subject-container">
+    <article>
+        <div class="subject-header">
+            <h1>교과목 강의</h1>
+            <p>항목을 클릭하면 해당 교수님의 교과목 강의를 다운로드하실 수 있습니다.</p>
+        </div>
+
+        <ul class="subject-list">
+
+            
+            
+<div class="professor-container">
+  <div id="prof-grid" class="professor-grid">
+    </div>
+</div>
+
+<script>
+  /* [수정 방법]
+    1. 해당 교수님의 'videos' 부분에 있는 "주소"를 실제 유튜브 링크로 바꾸세요.
+    2. 주소와 주소 사이에는 반드시 쉼표(,)가 있어야 합니다.
+  */
+  const professorData = [
+    { name: "남궁선교수", videos: Array(15).fill("https://www.youtube.com/watch?v=uWMxmNum9qA") },
+    { name: "우상용교수", videos: ["https://www.youtube.com/watch?v=ZhaKQXpXjUA","https://www.youtube.com/watch?v=3u78Lb7NAuU","https://www.youtube.com/watch?v=mcZIFQ0EwBo", 
+                              "https://www.youtube.com/watch?v=bS1zyhD7RY4", "https://www.youtube.com/watch?v=3BCPlNI08o4", "https://www.youtube.com/watch?v=ab-t9JWpvqc", 
+                              "https://www.youtube.com/watch?v=0Y8OWa_v1Zg", "https://www.youtube.com/watch?v=ZWUArOSJdK4", "https://www.youtube.com/watch?v=61uXeIXBaOU", 
+                              "https://www.youtube.com/watch?v=TY5NQQNYvoQ", "https://www.youtube.com/watch?v=peA0nSXeRJs", "https://www.youtube.com/watch?v=43pXEfTMaIo", 
+                              "https://www.youtube.com/watch?v=uGT-p14EmK0", "https://www.youtube.com/watch?v=w5yROH52VBk", "https://www.youtube.com/watch?v=5EyFGu69jn8"] },
+    { name: "채윤교수", videos: ["https://www.youtube.com/watch?v=uWMxmNum9qA1","https://www.youtube.com/watch?v=5EyFGu69jn8","https://www.youtube.com/watch?v=uGT-p14EmK0", 
+                              "https://www.youtube.com/watch?v=w5yROH52VBk", "https://www.youtube.com/watch?v=w5yROH52VBk", "https://www.youtube.com/watch?v=w5yROH52VBk", 
+                              "https://www.youtube.com/watch?v=uGT-p14EmK0", "https://www.youtube.com/watch?v=w5yROH52VBk", "https://www.youtube.com/watch?v=w5yROH52VBk", 
+                              "https://www.youtube.com/watch?v=w5yROH52VBk", "https://www.youtube.com/watch?v=w5yROH52VBk", "https://www.youtube.com/watch?v=w5yROH52VBk", 
+                              "https://www.youtube.com/watch?v=uGT-p14EmK0", "https://www.youtube.com/watch?v=w5yROH52VBk", "https://www.youtube.com/watch?v=5EyFGu69jn8"] },
+    { name: "김낙신교수", 
+     videos: ["https://www.youtube.com/watch?v=nkJhE_vTykc",
+    "https://www.youtube.com/watch?v=H0YW4ml6QF4",
+    "https://www.youtube.com/watch?v=qvlkqp4riAU",
+    "https://www.youtube.com/watch?v=XryZbEqng9A",
+    "https://www.youtube.com/watch?v=JpX1JlVBLHw",
+    "https://www.youtube.com/watch?v=HrvEoiQN47o",
+    "https://www.youtube.com/watch?v=L8TeTYMR7Aw"]},
+   { name: "백만숙교수",
+    videos: ["https://www.youtube.com/watch?v=lv8zsPrQ1EI",
+      "https://www.youtube.com/watch?v=sWdy2WODSX8",
+      "https://www.youtube.com/watch?v=O0l278l4_so",
+      "https://www.youtube.com/watch?v=CaIXJgSdTHw",
+      "https://www.youtube.com/watch?v=PUhKzC0nW38",
+      "https://www.youtube.com/watch?v=t3SbuisNH_Q",
+      "https://www.youtube.com/watch?v=LP6VG36LuE4",
+      "https://www.youtube.com/watch?v=Tj45_hae8sU",
+      "https://www.youtube.com/watch?v=ZXHWVToX_DQ",
+      "https://www.youtube.com/watch?v=vDMXkKWUqTZw"]},
+    { name: "JONALYN KIM 교수",
+    videos: ["https://www.youtube.com/watch?v=a0KNyqHr5hc",
+      "https://www.youtube.com/watch?v=F_YZX2_cIKI",
+      "https://www.youtube.com/watch?v=51mef9DehVko"]},  
+    { name: "박영훈교수", videos: Array(15).fill("https://www.youtube.com/watch?v=uWMxmNum9qA") },
+    { name: "김병극교수", videos: Array(15).fill("https://www.youtube.com/watch?v=uWMxmNum9qA") },
+    { name: "김진국교수", videos: Array(15).fill("https://www.youtube.com/watch?v=uWMxmNum9qA") },
+    { name: "박효숙교수", videos: Array(15).fill("https://www.youtube.com/watch?v=uWMxmNum9qA") },
+    { name: "서형범교수", videos: Array(15).fill("https://www.youtube.com/watch?v=uWMxmNum9qA") },
+    { name: "장광천교수", videos: Array(15).fill("https://www.youtube.com/watch?v=uWMxmNum9qA") },
+    { name: "이영희교수", videos: Array(15).fill("https://www.youtube.com/watch?v=uWMxmNum9qA") },
+  ];
+
+  const grid = document.getElementById('prof-grid');
+
+  professorData.forEach((prof, pIdx) => {
+    const item = document.createElement('div');
+    item.className = 'professor-item';
+    
+    let listHtml = '';
+    prof.videos.forEach((url, vIdx) => {
+      listHtml += `<li><a href="${url}" target="_blank">🎥 제${vIdx + 1}강 강의보기</a></li>`;
+    });
+
+    item.innerHTML = `
+      <button type="button" class="lecture-btn" onclick="toggleList('list${pIdx}', this)">
+        ${prof.name} <span class="arrow">▼</span>
+      </button>
+      <ul id="list${pIdx}" class="link-list">
+        ${listHtml}
+      </ul>
+    `;
+    grid.appendChild(item);
+  });
+
+  function toggleList(listId, btn) {
+    const list = document.getElementById(listId);
+    const arrow = btn.querySelector('.arrow');
+    const isVisible = list.style.display === "block";
+
+    document.querySelectorAll('.link-list').forEach(el => {
+      el.style.display = 'none';
+      el.previousElementSibling.querySelector('.arrow').innerHTML = "▼";
+    });
+
+    if (!isVisible) {
+      list.style.display = "block";
+      arrow.innerHTML = "▲";
+    }
+  }
+</script>
+
+<style>
+  .professor-container { width: 100%; margin: 30px 0; font-family: 'Malgun Gothic', sans-serif; }
+  
+  .professor-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); 
+    gap: 15px 6px;
+  }
+
+  .professor-item { position: relative; }
+
+  .lecture-btn {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-top: 4px solid #0056b3;
+    padding: 18px 5px;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s;
+  }
+
+  .lecture-btn:hover { background-color: #f0f5ff; transform: translateY(-2px); }
+
+  .link-list {
+    display: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    position: absolute;
+    width: 100%;
+    z-index: 100;
+    max-height: 250px; /* 15강 스크롤용 높이 제한 */
+    overflow-y: auto;
+  }
+
+  /* 스크롤바 세련되게 수정 */
+  .link-list::-webkit-scrollbar { width: 5px; }
+  .link-list::-webkit-scrollbar-thumb { background: #0056b3; border-radius: 10px; }
+
+  .link-list li a {
+    display: block;
+    padding: 10px 12px;
+    text-decoration: none;
+    color: #555;
+    font-size: 12px;
+    border-bottom: 1px solid #f1f5f9;
+    text-align: left;
+  }
+
+  .link-list li a:hover { background-color: #f8f9fa; color: #0056b3; padding-left: 15px; }
+
+  .arrow { margin-left: 5px; font-size: 10px; color: #999; }
+
+  @media (max-width: 1200px) { .professor-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 600px) { .professor-grid { grid-template-columns: repeat(2, 1fr); } }
+</style>
+
+            
+</div>            
+    </main>
+    <footer class="simple-footer">
+        <div class="container">
+            <a class="simple-footer-brand" href="../../index.html">
+                <img src="../../assets/images/site-logo.png" alt="연구원 로고" width="56" height="56">
+                <span>GTCC Institute for Well-Aging and Lifelong Health</span>
+            </a>
+            <p>GTCC Institute for Well-Aging and Lifelong Health</p>
+            <address>(08227) 서울 구로구 중앙로1길 42<br>(고척동, 일이삼전자타운) 1동 608호</address>
+            <p>Tel. <a href="tel:0316778428">(031) 677-8428</a><br>Email. <a href="mailto:hanyoungcc@naver.com">hanyoungcc@naver.com</a></p>
+            <p class="simple-footer-copyright">&copy; 2026 GTCC Institute for Well-Aging and Lifelong Health.<br>All rights reserved.</p>
+        </div>
+    </footer>
+    
+</body>
+</html>

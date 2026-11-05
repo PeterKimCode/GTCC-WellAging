@@ -1,4 +1,5 @@
 .template-reference/
+.previous-design/
 node_modules/
 .qa/
 __pycache__/
