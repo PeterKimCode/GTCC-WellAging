@@ -324,17 +324,17 @@ a {
 }
 
 .hero-slide-1 {
-    background-image: url('../assets/images/hero.png');
+    background-image: url('../assets/images/hero-dementia-care.png');
     animation-delay: 0s;
 }
 
 .hero-slide-2 {
-    background-image: url('../assets/images/study.png');
+    background-image: url('../assets/images/hero-senior-health.png');
     animation-delay: 6s;
 }
 
 .hero-slide-3 {
-    background-image: url('../assets/images/hero.png');
+    background-image: url('../assets/images/hero-dementia-care.png');
     background-position: center 30%;
     animation-delay: 12s;
 }

@@ -7,7 +7,7 @@ BRAND="GTCC Institute for Well-Aging and Lifelong Health"
 def brand(text):
     for old in ("대한예수교장로회(한영)총회신학학술연구원","대한예수교장로회(한영)<br>총회신학학술연구원","총회신학학술연구원","총회신학연구원"):
         text=text.replace(old,BRAND)
-    return text.replace("<span>"+BRAND+"</span>\n                </div>","<span>General Trias College of Cavite</span>\n                </div>").replace("hyts_lang","gtcc_wellaging_lang")
+    return text.replace("<span>"+BRAND+"</span>\n                </div>","<span>General Trias College of Cavite</span>\n                </div>").replace("hyts_lang","gtcc_wellaging_lang").replace('css/style.css"', 'css/style.css?v=20261105-care"')
 class Links(HTMLParser):
     def __init__(self): super().__init__(); self.links=[]
     def handle_starttag(self,tag,attrs):
@@ -32,8 +32,12 @@ for page in pages:
             errors.append(f"Unexpected template difference: {page.relative_to(ROOT)}")
     count+=1
 if SOURCE.is_dir():
-    if (ROOT/"css/style.css").read_bytes()!=(SOURCE/"css/style.css").read_bytes(): errors.append("Original stylesheet changed")
+    original_css=(SOURCE/"css/style.css").read_text(encoding="utf-8").replace("../assets/images/hero.png", "../assets/images/hero-dementia-care.png").replace("../assets/images/study.png", "../assets/images/hero-senior-health.png")
+    if (ROOT/"css/style.css").read_text(encoding="utf-8")!=original_css: errors.append("Unexpected layout/style change beyond requested hero images")
     if len(pages)!=len(list(SOURCE.glob("*.html"))+list((SOURCE/"board_posts").rglob("*.html"))): errors.append("Page count changed")
 if (ROOT/"CNAME").exists(): errors.append("Original CNAME copied")
 if errors: raise SystemExit("\n".join(errors))
-print(f"PASS: {count} original pages, original CSS, all local links, images and embeds; only branding changed.")
+for name in ("hero-dementia-care.png", "hero-senior-health.png"):
+    if not (ROOT/"assets/images"/name).is_file(): errors.append(f"Missing hero image: {name}")
+if errors: raise SystemExit("\n".join(errors))
+print(f"PASS: {count} template pages, unchanged layout, all local links and hero assets; branding and requested hero images only.")
