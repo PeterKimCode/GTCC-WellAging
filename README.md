@@ -16,5 +16,7 @@ http://127.0.0.1:4173
 원본: https://github.com/PeterKimCode/hyts_website
 참조 커밋: b1a350e64df3e6011a7e44a12c65ed25072d1014
 
-기존 연락처·카카오·Web3Forms 설정을 유지했습니다. CNAME은 복사하지 않았고 배포하지 않았습니다.
+기존 연락처·카카오·Web3Forms 설정을 유지했습니다. 원본 CNAME은 복사하지 않았습니다.
+GitHub Pages: https://peterkimcode.github.io/GTCC-WellAging/
+공개 저장소의 main 브랜치 루트에서 자동 배포합니다. 게시글의 메뉴 링크는 프로젝트 주소에서도 동작하도록 상대 경로를 사용합니다.
 로컬 .template-reference와 .previous-design 폴더는 Git에서 제외합니다.

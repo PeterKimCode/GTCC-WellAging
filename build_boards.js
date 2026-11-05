@@ -208,11 +208,11 @@ function buildLayout(title, content, extraScript = '') {
                     <span>학교소개</span>
                 </summary>
                 <div class="nav-dropdown-menu">
-                    <a href="/intro_greeting.html">학장 인사말</a>
-                    <a href="/intro_ideology.html">교육이념</a>
-                    <a href="/intro_history.html">연혁</a>
-                    <a href="/intro_org.html">조직도</a>
-                    <a href="/intro_faculty.html">교수 소개</a>
+                    <a href="../../intro_greeting.html">학장 인사말</a>
+                    <a href="../../intro_ideology.html">교육이념</a>
+                    <a href="../../intro_history.html">연혁</a>
+                    <a href="../../intro_org.html">조직도</a>
+                    <a href="../../intro_faculty.html">교수 소개</a>
                 </div>
             </details>
             <a href="../../admissions_guideline.html" class="nav-icon-link"><div class="icon-box"><i class="ph-light ph-graduation-cap"></i></div><span>입학안내</span></a>

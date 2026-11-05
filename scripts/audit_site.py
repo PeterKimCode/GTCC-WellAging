@@ -25,7 +25,10 @@ for page in pages:
         if not target.is_file(): errors.append(f"Missing local link: {page.relative_to(ROOT)}: {link}")
     if SOURCE.is_dir():
         original=SOURCE/page.relative_to(ROOT)
-        if not original.exists() or brand(original.read_text(encoding="utf-8")).strip()!=text.strip():
+        expected=brand(original.read_text(encoding="utf-8")) if original.exists() else ''
+        if page.parent != ROOT:
+            expected=expected.replace('href="/', 'href="../../')
+        if not original.exists() or expected.strip()!=text.strip():
             errors.append(f"Unexpected template difference: {page.relative_to(ROOT)}")
     count+=1
 if SOURCE.is_dir():
