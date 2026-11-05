@@ -6,6 +6,7 @@ const template = fs.readFileSync(path.join(root,'templates/site.html'),'utf8');
 for (const [file, page] of Object.entries(pages)) {
   const prefix = '../'.repeat(file.split('/').length - 1);
   let html = template.replace('{{TITLE}}',page.title).replace('{{MAIN}}',page.main);
+  if (page.styles?.length) html = html.replace('</head>',page.styles.map(href => '<link rel="stylesheet" href="'+href+'">').join('\n')+'\n</head>');
   html = html.replace(/\b(href|src)="([^"]+)"/g, (match,attr,url) =>
     /^(?:[a-z]+:|\/\/|#)/i.test(url) ? match : attr+'="'+prefix+url+'"');
   const destination = path.join(root,file);

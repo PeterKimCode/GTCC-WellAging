@@ -35,8 +35,20 @@ test('research institute has director identity and textbooks linked from news',(
  assert.ok(news.window.document.querySelector('main a[href="online-textbooks.html"]'));
  news.window.close();
  const textbooks=fs.readFileSync(path.join(root,'online-textbooks.html'),'utf8');
- assert.match(textbooks,/등록 교재 0권/);
- assert.match(textbooks,/준비하고 있습니다/);
+ assert.match(textbooks,/화면 구성을 위한 예시/);
+ const library=new JSDOM(textbooks);
+ const cards=[...library.window.document.querySelectorAll('.textbook-card')];
+ assert.equal(cards.length,8);
+ const destinations=cards.map(card=>card.querySelector('.textbook-card-link').getAttribute('href'));
+ assert.equal(new Set(destinations).size,8);
+ for(const file of destinations) {
+   const reader=new JSDOM(fs.readFileSync(path.join(root,file),'utf8'));
+   assert.ok(reader.window.document.querySelector('.textbook-back[href="online-textbooks.html"]'));
+   for(const link of reader.window.document.querySelectorAll('.textbook-toc a')) assert.ok(reader.window.document.querySelector(link.getAttribute('href')));
+   assert.equal(reader.window.document.querySelectorAll('.textbook-chapter').length,3);
+   reader.window.close();
+ }
+ library.window.close();
 });
 test('mock success retains endpoint, recipient key and new brand',async()=>{
  const c=setup();try{fill(c);submit(c);await tick();assert.equal(c.calls.length,1);

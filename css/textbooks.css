@@ -1,0 +1,40 @@
+
+/* Scoped to the online textbook library and sample readers. */
+.textbook-library { position: relative; z-index: 10; margin-top: -24px; margin-bottom: 80px; }
+.library-heading { margin-bottom: 28px; }
+.library-heading h3 { margin: 0 0 14px; color: #0c2942; font-size: 30px; line-height: 1.45; }
+.library-heading p { margin: 6px 0; color: #64748b; font-size: 14px; line-height: 1.7; }
+.textbook-sample-note { color: #718096; font-size: 12px; line-height: 1.8; }
+.textbook-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+.textbook-card { min-width: 0; overflow: hidden; display: flex; flex-direction: column; background: #fff; border: 1px solid #dbe3ed; border-radius: 9px; box-shadow: 0 9px 22px rgba(20,45,70,.04); transition: transform .2s, box-shadow .2s; }
+.textbook-card:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(20,45,70,.09); }
+.textbook-card-image { height: 212px; display: flex; align-items: center; justify-content: center; background: #edf3f9; padding: 20px; }
+.textbook-card-image img { display: block; width: 119px; height: 172px; object-fit: contain; box-shadow: 4px 5px 9px #10223522; }
+.textbook-card-content { flex: 1; display: flex; flex-direction: column; align-items: flex-start; padding: 24px 22px 25px; }
+.textbook-tag { color: #941c36; font-size: 12px; font-weight: 800; letter-spacing: .02em; }
+.textbook-card h3 { margin: 11px 0 10px; font-size: 20px; font-weight: 800; color: #102b43; line-height: 1.45; word-break: keep-all; }
+.textbook-subtitle, .textbook-meta { color: #718096; font-size: 13px; line-height: 1.75; word-break: keep-all; margin: 0; }
+.textbook-meta { margin-top: 5px; }
+.textbook-card-link { margin-top: auto; padding-top: 21px; color: #941c36; font-size: 14px; font-weight: 800; display: inline-flex; gap: 10px; }
+.textbook-card a:focus-visible, .textbook-reader a:focus-visible, .textbook-library-bottom a:focus-visible { outline: 3px solid #27846e; outline-offset: 4px; }
+.textbook-library-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 15px; margin-top: 28px; font-size: 14px; color: #415771; }
+.textbook-back { display: inline-block; color: #64748b; font-size: 14px; margin-bottom: 32px; }
+.textbook-overview { display: grid; grid-template-columns: 260px minmax(0,1fr); gap: 48px; align-items: start; }
+.textbook-detail-cover { background: #edf3f9; border-radius: 12px; padding: 28px; text-align: center; }
+.textbook-detail-cover img { display: block; width: 100%; max-width: 210px; height: auto; margin: auto; box-shadow: 6px 9px 15px #10223522; }
+.textbook-overview h3 { font-size: 32px; line-height: 1.4; margin: 12px 0; color: #0c2942; word-break: keep-all; }
+.textbook-lead { color: #64748b; line-height: 1.8; font-size: 17px; margin-bottom: 14px; }
+.textbook-overview .textbook-sample-note { background: #f7f9fc; border-left: 3px solid #ced9e4; padding: 12px 16px; margin: 20px 0; }
+.textbook-toc { margin-top: 25px; }
+.textbook-toc h4 { color: #18354d; font-size: 16px; margin-bottom: 10px; }
+.textbook-toc a { display: flex; justify-content: space-between; gap: 15px; padding: 11px 0; border-bottom: 1px solid #e8edf2; color: #526a7f; font-size: 14px; }
+.textbook-chapters { margin-top: 60px; }
+.textbook-chapter { padding: 32px 0; border-top: 1px solid #e1e8ef; scroll-margin-top: 30px; }
+.textbook-chapter>span { font-size: 11px; color: #941c36; letter-spacing: .1em; font-weight: 800; }
+.textbook-chapter h3 { margin: 12px 0 18px; font-size: 25px; color: #18354d; }
+.textbook-chapter p { font-size: 16px; line-height: 2; color: #52616f; word-break: keep-all; }
+.textbook-page-nav { display: grid; grid-template-columns: 1fr auto 1fr; gap: 15px; border-top: 1px solid #e1e8ef; padding-top: 28px; margin-top: 20px; font-size: 14px; color: #941c36; font-weight: 700; }
+.textbook-page-nav>:last-child { text-align: right; }
+@media(max-width:1100px) { .textbook-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } .textbook-overview { grid-template-columns: 220px minmax(0,1fr); gap: 30px; } }
+@media(max-width:600px) { .textbook-grid { grid-template-columns: minmax(0,1fr); gap: 20px; } .textbook-library { margin-top: 0; margin-bottom: 50px; } .library-heading h3 { font-size: 25px; } .textbook-card-image { height: 230px; } .textbook-card-image img { height: 190px; width: 132px; } .textbook-overview { grid-template-columns: 1fr; gap: 26px; } .textbook-detail-cover { max-width: 270px; width: 100%; margin: auto; } .textbook-overview h3 { font-size: 28px; } .textbook-chapters { margin-top: 35px; } .textbook-chapter h3 { font-size: 22px; } .textbook-chapter p { font-size: 15px; } .textbook-page-nav { font-size: 12px; gap: 8px; } }
+@media(prefers-reduced-motion:reduce) { .textbook-card { transition: none; } }

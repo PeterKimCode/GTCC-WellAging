@@ -2,6 +2,7 @@ from pathlib import Path
 from html.parser import HTMLParser
 from urllib.parse import urlsplit, unquote
 import json,re
+import xml.etree.ElementTree as ET
 ROOT=Path(__file__).resolve().parents[1]
 class Page(HTMLParser):
     def __init__(self): super().__init__(); self.links=[]; self.text=[]; self.nav=False
@@ -37,5 +38,8 @@ for folder in ("content","board_data","js"):
         if path.suffix in (".json",".md",".js") and re.search(legacy,path.read_text(encoding="utf-8")):
             errors.append(f"Legacy source content: {path.relative_to(ROOT)}")
 if (ROOT/"CNAME").exists(): errors.append("Unexpected old domain")
+for cover in (ROOT/"assets/images").glob("book-*.svg"):
+    try: ET.parse(cover)
+    except ET.ParseError: errors.append(f"Invalid textbook cover SVG: {cover.name}")
 if errors: raise SystemExit("\n".join(errors))
 print(f"PASS: {len(pages)} research institute pages, template layout preserved, no obsolete copy, all local links valid.")
