@@ -1,0 +1,14 @@
+{
+  "name": "gtcc-wellaging",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GTCC Institute for Well-Aging and Lifelong Health",
+  "scripts": {
+    "preview": "node scripts/preview.mjs",
+    "test": "node --test tests/site.test.cjs",
+    "check": "python scripts/audit_site.py && node --check js/site.js && node --test tests/site.test.cjs"
+  },
+  "devDependencies": {
+    "jsdom": "^26.1.0"
+  }
+}

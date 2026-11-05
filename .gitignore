@@ -1,0 +1,5 @@
+.template-reference/
+node_modules/
+.qa/
+__pycache__/
+*.log
