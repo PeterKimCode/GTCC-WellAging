@@ -16,7 +16,8 @@ errors=[]
 pages=list(ROOT.glob("*.html"))+list((ROOT/"board_posts").rglob("*.html"))
 expected=set(json.loads((ROOT/"content/site.json").read_text(encoding="utf-8"))["pages"])
 if {p.relative_to(ROOT).as_posix() for p in pages}!=expected: errors.append("Unexpected or missing pages")
-legacy=r"학교|대학|신학|입학|학위|학사|석사|박사|교수|총회|목회|장학|학생|졸업|등록금|성경|선교|예수|교회|모세|돌봄·건강관리 상담|이용 비용 안내"
+# Reject old template/program labels while allowing the user-supplied director biography.
+legacy=r"입학안내|입학 안내|입학상담|학위과정|학사 과정|석사 과정|박사 과정|신학 공동체|학교소개|학과소개|대학생활|교수 소개|총회장 인사말|모집요강|전형일정|등록금|장학제도|학사안내|돌봄·건강관리 상담|이용 비용 안내"
 for path in pages:
     text=path.read_text(encoding="utf-8"); doc=Page();doc.feed(text)
     if re.search(legacy,text): errors.append(f"Legacy content: {path.relative_to(ROOT)}")

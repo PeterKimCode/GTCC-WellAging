@@ -29,8 +29,15 @@ test('required fields block transmission',()=>{
 });
 test('research institute has director identity and textbooks linked from news',()=>{
  const director=fs.readFileSync(path.join(root,'intro_greeting.html'),'utf8');
- assert.match(director,/이성종 목사/);
+ assert.match(director,/이성종 박사/);
  assert.match(director,/부설 연구소장/);
+ assert.match(director,/교육철학 명예박사/);
+ assert.match(director,/노인학 박사/);
+ const profile=new JSDOM(director);
+ assert.equal(profile.window.document.querySelector('.director-portrait img').getAttribute('src'),'assets/images/director-seong-jong-lee.png');
+ for(const link of profile.window.document.querySelectorAll('.director-section-nav a')) assert.ok(profile.window.document.querySelector(link.getAttribute('href')));
+ assert.doesNotMatch(director,/생년월일|학위번호|증명서 번호/);
+ profile.window.close();
  const news=new JSDOM(fs.readFileSync(path.join(root,'research_intro.html'),'utf8'));
  assert.ok(news.window.document.querySelector('main a[href="online-textbooks.html"]'));
  news.window.close();

@@ -1,0 +1,49 @@
+
+/* Director page only; the shared template layout is retained. */
+.director-content { padding: 64px; }
+.director-intro { display: grid; grid-template-columns: minmax(240px, .8fr) minmax(0, 1.25fr); gap: 54px; align-items: center; }
+.director-portrait { margin: 0; }
+.director-portrait img { display: block; width: 100%; height: auto; border-radius: 18px; box-shadow: 0 12px 35px #142c4714; }
+.director-portrait figcaption { margin-top: 12px; font-size: 12px; text-align: center; color: #758296; }
+.director-eyebrow { margin: 0 0 14px; color: #92733b; font-family: Arial,sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .16em; }
+.director-position { display: inline-block; color: #3d5f54; background: #eaf2ee; border-radius: 5px; padding: 6px 11px; font-size: 12px; }
+.director-identity h3 { font-size: 44px; line-height: 1.3; margin: 18px 0 4px; color: #15344e; letter-spacing: -.035em; }
+.director-identity h3 span { font-size: 25px; font-weight: 500; }
+.director-english { color: #7c8896; font-size: 14px; }
+.director-roles { margin: 24px 0; font-size: 14px; line-height: 1.9; color: #55687b; word-break: keep-all; }
+.director-identity h4 { color: #1c3c56; font-size: 23px; line-height: 1.65; word-break: keep-all; }
+.director-identity blockquote { margin: 24px 0 0; padding: 18px 0 0 18px; border-left: 3px solid #c5ad7a; color: #687886; font-size: 15px; line-height: 1.95; word-break: keep-all; }
+.director-section-nav { display: flex; flex-wrap: wrap; gap: 10px; padding: 28px 0; margin-top: 28px; border-bottom: 1px solid #e3e9ef; }
+.director-section-nav a { padding: 8px 15px; border: 1px solid #dbe4eb; border-radius: 30px; font-size: 13px; color: #456078; }
+.director-section-nav a:hover { background: #eff4f8; }
+.director-page a:focus-visible { outline: 3px solid #358b73; outline-offset: 4px; }
+.director-section { padding-top: 50px; scroll-margin-top: 140px; }
+.director-section>h3 { margin: 0 0 28px; color: #15344e; font-size: 28px; line-height: 1.5; word-break: keep-all; }
+.director-prose { max-width: 880px; }
+.director-prose p { margin: 0 0 20px; color: #4e6072; font-size: 16px; line-height: 2; word-break: keep-all; }
+.director-prose .director-signature { margin-top: 30px; font-size: 13px; text-align: right; color: #758393; }
+.director-signature span { display: inline-block; margin-top: 8px; font-size: 16px; color: #35536e; }
+.director-signature strong { margin-left: 10px; font-size: 20px; font-weight: 700; }
+.director-background { display: grid; grid-template-columns: 1fr 1fr; gap: 38px; }
+.director-list-title { font-size: 18px; color: #3d5f54; margin-bottom: 24px; }
+.director-timeline { margin: 0; padding: 0; list-style: none; }
+.director-timeline li { display: grid; grid-template-columns: 84px minmax(0,1fr); gap: 16px; padding: 18px 0; border-top: 1px solid #e4ebf0; }
+.director-year { font-size: 12px; color: #8d7045; padding-top: 2px; white-space: nowrap; }
+.director-timeline h4 { margin: 0; color: #29465d; font-size: 15px; font-weight: 600; line-height: 1.65; word-break: keep-all; }
+.director-timeline p { color: #728191; font-size: 13px; margin-top: 5px; line-height: 1.7; }
+.director-publications { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
+.director-publications article { background: #f5f8fb; border: 1px solid #e2e9f0; border-radius: 14px; padding: 26px; }
+.director-publications article>span { font-size: 11px; color: #90713d; }
+.director-publications h4 { font-size: 20px; color: #1c3c56; line-height: 1.6; margin: 14px 0 12px; word-break: keep-all; }
+.director-publications p { color: #718091; font-size: 14px; line-height: 1.8; word-break: keep-all; }
+.director-teaching-books { margin-top: 24px; background: #edf4f0; border-radius: 14px; padding: 28px; }
+.director-teaching-books h4 { color: #31584b; font-size: 18px; }
+.director-teaching-books ul { padding: 15px 0; list-style: none; }
+.director-teaching-books li { font-size: 16px; color: #526e62; line-height: 1.9; }
+.director-teaching-books a { color: #31584b; font-size: 13px; font-weight: 700; }
+.director-qualifications { display: flex; flex-wrap: wrap; gap: 12px; padding: 0; list-style: none; }
+.director-qualifications li { padding: 10px 16px; font-size: 14px; color: #4c6278; border: 1px solid #dbe4ec; background: #f8fafc; border-radius: 8px; }
+.director-closing { margin-top: 56px; border-top: 1px solid #e3e9ef; padding-top: 36px; }
+.director-closing blockquote { color: #48605a; margin: 0 0 26px; font-size: 19px; line-height: 1.9; word-break: keep-all; }
+@media(max-width:1000px) { .director-content { padding: 42px; } .director-intro { gap: 32px; } .director-identity h3 { font-size: 36px; } .director-identity h4 { font-size: 20px; } .director-background { gap: 24px; } .director-timeline li { grid-template-columns: 76px minmax(0,1fr); gap: 10px; } }
+@media(max-width:700px) { .director-content { padding: 28px 20px; } .director-intro { grid-template-columns: 1fr; gap: 28px; } .director-portrait { width: min(100%,320px); margin: auto; } .director-identity h3 { font-size: 36px; } .director-identity h4 { font-size: 21px; } .director-identity h4 br { display: none; } .director-section-nav { gap: 8px; padding-bottom: 24px; } .director-section-nav a { padding: 7px 12px; font-size: 12px; } .director-section { padding-top: 38px; } .director-section>h3 { font-size: 24px; margin-bottom: 22px; } .director-prose p { font-size: 15px; line-height: 1.95; } .director-background, .director-publications { grid-template-columns: 1fr; gap: 24px; } .director-publications article { padding: 22px; } .director-publications h4 { font-size: 19px; } .director-teaching-books { padding: 22px; } .director-teaching-books li { font-size: 15px; } .director-qualifications { gap: 9px; } .director-qualifications li { padding: 9px 12px; font-size: 13px; } .director-closing blockquote { font-size: 17px; } }
