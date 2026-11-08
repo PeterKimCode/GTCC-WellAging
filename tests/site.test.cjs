@@ -17,7 +17,7 @@ const tick=()=>new Promise(resolve=>setImmediate(resolve));
 test('template retains seven icon menus, slider, three cards and four institute links',()=>{
  const c=setup();try{
  assert.equal(c.w.document.querySelectorAll('.nav-icons-wrap > *').length,7);
- assert.equal(c.w.document.querySelectorAll('iframe').length,0);
+ assert.equal(c.w.document.querySelectorAll('.home-sermons iframe').length,4);
  assert.equal(c.w.document.querySelectorAll('.care-info-card').length,4);
  assert.match(c.w.document.querySelector('.hero-title').textContent,/노년의 삶을 연구/);
  assert.ok(c.w.document.querySelector('#slider'));
