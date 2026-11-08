@@ -27,7 +27,7 @@
 
 .home-sermons-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 24px;
 }
 
@@ -53,10 +53,18 @@
 .home-sermons-caption h3 {
     margin-bottom: 6px;
     font-size: 17px;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
 }
 
 .home-sermons-caption a {
     font-size: 13px;
+}
+
+@media (max-width: 1024px) {
+    .home-sermons-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 @media (max-width: 640px) {
