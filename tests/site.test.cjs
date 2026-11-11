@@ -42,17 +42,40 @@ test('research institute has director identity and textbooks linked from news',(
  assert.ok(news.window.document.querySelector('main a[href="online-textbooks.html"]'));
  news.window.close();
  const textbooks=fs.readFileSync(path.join(root,'online-textbooks.html'),'utf8');
- assert.match(textbooks,/화면 구성을 위한 예시/);
  const library=new JSDOM(textbooks);
  const cards=[...library.window.document.querySelectorAll('.textbook-card')];
  assert.equal(cards.length,8);
+ const publishedBooks=[
+   ['노인학의 이해','6af07115d0a65c4f1af0ad2b'],
+   ['웰에이징과 삶의 설계','6af07171b9f7b0c3c980e477'],
+   ['노년의 평생학습','6af06fd22338ad95f59d8511'],
+ ];
+ assert.deepEqual(cards.slice(0,3).map(card=>card.querySelector('h3').textContent),publishedBooks.map(([title])=>title));
  const destinations=cards.map(card=>card.querySelector('.textbook-card-link').getAttribute('href'));
  assert.equal(new Set(destinations).size,8);
- for(const file of destinations) {
+ for(const [index,file] of destinations.entries()) {
    const reader=new JSDOM(fs.readFileSync(path.join(root,file),'utf8'));
-   assert.ok(reader.window.document.querySelector('.textbook-back[href="online-textbooks.html"]'));
-   for(const link of reader.window.document.querySelectorAll('.textbook-toc a')) assert.ok(reader.window.document.querySelector(link.getAttribute('href')));
-   assert.equal(reader.window.document.querySelectorAll('.textbook-chapter').length,3);
+   const doc=reader.window.document;
+   assert.ok(doc.querySelector('.textbook-back[href="online-textbooks.html"]'));
+   assert.deepEqual(
+     [...doc.querySelectorAll('.textbook-page-nav a')].map(link=>link.getAttribute('href')),
+     [destinations[index-1],'online-textbooks.html',destinations[index+1]].filter(Boolean),
+   );
+   const book=publishedBooks[index];
+   if(book) {
+     const [title,id]=book;
+     assert.equal(doc.querySelector('.textbook-overview h3').textContent,title);
+     assert.match(cards[index].querySelector('.textbook-meta').textContent,/이성종/);
+     assert.match(doc.querySelector('.textbook-meta').textContent,/이성종/);
+     const cover=doc.querySelector('.textbook-detail-cover img').getAttribute('src');
+     assert.equal(cover,cards[index].querySelector('img').getAttribute('src'));
+     assert.match(cover,/\.jpg$/);
+     assert.ok(doc.querySelector(`.textbook-overview a[href="https://bookk.co.kr/bookStore/${id}"]`));
+   } else {
+     assert.equal(cards[index].querySelector('.textbook-tag').textContent,'예시 교재');
+     for(const link of doc.querySelectorAll('.textbook-toc a')) assert.ok(doc.querySelector(link.getAttribute('href')));
+     assert.equal(doc.querySelectorAll('.textbook-chapter').length,3);
+   }
    reader.window.close();
  }
  library.window.close();
