@@ -44,7 +44,7 @@ test('research institute has director identity and textbooks linked from news',(
  const textbooks=fs.readFileSync(path.join(root,'online-textbooks.html'),'utf8');
  const library=new JSDOM(textbooks);
  const cards=[...library.window.document.querySelectorAll('.textbook-card')];
- assert.equal(cards.length,42);
+ assert.equal(cards.length,61);
  const firstBooks=[
    ['노인학의 이해','6af07115d0a65c4f1af0ad2b'],
    ['웰에이징과 삶의 설계','6af07171b9f7b0c3c980e477'],

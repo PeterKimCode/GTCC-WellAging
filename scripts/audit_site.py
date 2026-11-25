@@ -38,7 +38,9 @@ for folder in ("content","board_data","js"):
     for path in (ROOT/folder).rglob("*"):
         if path.suffix in (".json",".md",".js") and re.search(legacy,path.read_text(encoding="utf-8")):
             errors.append(f"Legacy source content: {path.relative_to(ROOT)}")
-if (ROOT/"CNAME").exists(): errors.append("Unexpected old domain")
+cname=ROOT/"CNAME"
+if cname.exists() and cname.read_text(encoding="utf-8").strip()!="well.gtccedu.com":
+    errors.append("Unexpected GitHub Pages custom domain")
 for cover in (ROOT/"assets/images").glob("book-*.svg"):
     try: ET.parse(cover)
     except ET.ParseError: errors.append(f"Invalid textbook cover SVG: {cover.name}")
