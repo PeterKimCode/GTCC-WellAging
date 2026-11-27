@@ -52,11 +52,16 @@ function readEntries(raw) {
         const line = rawLine.trim();
         if (!line || line.startsWith('#')) continue;
         try {
-            const split = line.lastIndexOf('|');
-            const title = line.slice(0, split).trim();
-            if (split < 0 || !title || title.length > 160) throw new Error('형식: 책 제목 | 서점 상품 주소');
-            const product = storeProduct(line.slice(split + 1).trim());
-            entries.push({ title, line: index + 1, ...product });
+            const fields = line.split('|');
+            const lastLink = fields.pop().trim();
+            const previousField = fields.at(-1)?.trim();
+            const hasInfoLink = fields.length > 1 && /^https?:\/\//i.test(previousField);
+            const productLink = hasInfoLink ? fields.pop().trim() : lastLink;
+            const title = fields.join('|').trim();
+            if (!title || title.length > 160) throw new Error('형식: 책 제목 | 서점 상품 주소');
+            const product = storeProduct(productLink);
+            const infoSource = hasInfoLink && lastLink ? storeProduct(lastLink) : undefined;
+            entries.push({ title, line: index + 1, ...product, infoSource });
         } catch (error) {
             throw new Error('교재추가.txt ' + (index + 1) + '번째 줄 · ' + error.message);
         }
@@ -284,13 +289,14 @@ async function applyTextbookList(catalog, { rootDir, catalogFile, escapeHtml, in
     const isbns = new Set();
     const books = [];
     for (const entry of entries) {
-        if (urls.has(entry.key)) {
+        const keys = entry.infoSource ? [entry.key, entry.infoSource.key] : [entry.key];
+        if (keys.some(key => urls.has(key))) {
             console.warn('교재추가.txt ' + entry.line + '번째 줄 · 이미 등록된 상품 주소입니다.');
             continue;
         }
-        urls.add(entry.key);
+        for (const key of keys) urls.add(key);
         const saved = baseline.get(entry.key);
-        const metadata = saved ?? await fetchBook(entry).catch(error => {
+        const metadata = saved ?? await fetchBook(entry.infoSource ?? entry).catch(error => {
             console.warn('교재추가.txt ' + entry.line + '번째 줄 · 서점 정보 조회 실패 (' + error.message + ')');
             return {};
         });
