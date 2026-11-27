@@ -33,7 +33,7 @@ function storeProduct(value) {
     url.search = '';
     url.hash = '';
     url.pathname = url.pathname.replace(/\/$/, '');
-    if (url.hostname === 'bookk.co.kr') url.pathname = '/bookStore/' + product[1];
+    if (url.hostname === 'bookk.co.kr') url.pathname = '/bookStore/' + product[1].toLowerCase();
     if (url.hostname === 'www.aladin.co.kr') {
         if (!itemId || !/^\d+$/.test(itemId)) throw new Error('알라딘 상품 주소에 ItemId가 필요합니다.');
         url.pathname = '/shop/wproduct.aspx';
@@ -68,7 +68,7 @@ async function download(url, limit) {
     const response = await fetch(url, {
         redirect: 'error',
         signal: AbortSignal.timeout(10000),
-        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; GTCC textbook catalog)' },
+        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; online textbook catalog)' },
     });
     if (!response.ok) {
         await response.body?.cancel();
@@ -239,26 +239,58 @@ function renderBook(book, escape, nav, catalogFile) {
     return { card, page: { title: title + ' · 온라인 교재', main } };
 }
 
-async function addTextbooks(catalog, rootDir, catalogFile, escapeHtml, input) {
-    if (!fs.existsSync(input)) return;
+const cardHeading = /(<h3><a href="[^"]+">)([^<]+)(<\/a><\/h3>)/;
+const pageNavigation = /<nav class="textbook-page-nav"[\s\S]*?<\/nav>/;
+const bookstoreLink = /(class="textbook-card-link" href=")(https:[^"]+)(")/;
+
+function savedBooks(catalog) {
+    const books = new Map();
+    for (const [card] of catalog.library.main.matchAll(/<article class="textbook-card">[\s\S]*?<\/article>/g)) {
+        const file = /class="textbook-card-link" href="(textbook-[a-z0-9-]+\.html)"/.exec(card)?.[1];
+        const page = catalog.books[file];
+        const link = bookstoreLink.exec(page?.main)?.[2];
+        const label = cardHeading.exec(card)?.[2];
+        if (!link || !label || !pageNavigation.test(page.main)) {
+            throw new Error('기존 교재 정보를 읽을 수 없습니다: ' + (file || '파일명 누락'));
+        }
+        const key = storeProduct(decodeEntities(link)).key;
+        const isbn = /ISBN:\s*(\d{13})/.exec(page.main)?.[1];
+        books.set(key, { file, card, page, isbn, title: decodeEntities(label) });
+    }
+    return books;
+}
+
+function renderSaved(book, { title, url }, escape, nav) {
+    let { card, page: { main, title: pageTitle } } = book;
+    if (title !== book.title) {
+        const label = escape(title);
+        const replaceLabel = (match, start, oldLabel, end) => start + label + end;
+        const imageLabels = /((?:alt|aria-label)=")([^"]+)( (?:표지|교재 보기)")/g;
+        card = card.replace(cardHeading, replaceLabel).replace(imageLabels, replaceLabel);
+        main = main.replace(/(<h2>)([^<]+)(<\/h2>)/, replaceLabel)
+            .replace(/(<h3>)([^<]+)(<\/h3>)/, replaceLabel)
+            .replace(imageLabels, replaceLabel);
+        pageTitle = title + ' · 온라인 교재';
+    }
+    main = main.replace(pageNavigation, () => nav)
+        .replace(bookstoreLink, (match, start, oldLink, end) => start + escape(url.href) + end);
+    return { card, page: { title: pageTitle, main } };
+}
+
+async function applyTextbookList(catalog, { rootDir, catalogFile, escapeHtml, input, assetPrefix = '' }) {
     const entries = readEntries(fs.readFileSync(input, 'utf8'));
-    const priorFiles = Object.keys(catalog.books);
+    const baseline = savedBooks(catalog);
     const urls = new Set();
     const isbns = new Set();
-    for (const page of Object.values(catalog.books)) {
-        const url = /class="textbook-card-link" href="(https:[^"]+)"/.exec(page.main)?.[1];
-        if (url) urls.add(storeProduct(decodeEntities(url)).key);
-        const isbn = /ISBN:\s*(\d{13})/.exec(page.main)?.[1];
-        if (isbn) isbns.add(isbn);
-    }
-    const additions = [];
+    const books = [];
     for (const entry of entries) {
         if (urls.has(entry.key)) {
             console.warn('교재추가.txt ' + entry.line + '번째 줄 · 이미 등록된 상품 주소입니다.');
             continue;
         }
         urls.add(entry.key);
-        const metadata = await fetchBook(entry).catch(error => {
+        const saved = baseline.get(entry.key);
+        const metadata = saved ?? await fetchBook(entry).catch(error => {
             console.warn('교재추가.txt ' + entry.line + '번째 줄 · 서점 정보 조회 실패 (' + error.message + ')');
             return {};
         });
@@ -268,38 +300,45 @@ async function addTextbooks(catalog, rootDir, catalogFile, escapeHtml, input) {
             continue;
         }
         if (isbn) isbns.add(isbn);
+        if (saved) {
+            books.push({ ...entry, file: saved.file, saved });
+            continue;
+        }
         const slug = createHash('sha256').update(entry.key).digest('hex').slice(0, 16);
         const cover = await saveCover(metadata.cover, slug, rootDir).catch(error => {
             console.warn('교재추가.txt ' + entry.line + '번째 줄 · 표지 조회 실패 (' + error.message + ')');
             return '';
         });
-        additions.push({
-            ...entry, isbn, cover, file: 'textbook-added-' + slug + '.html',
+        books.push({
+            ...entry, isbn, cover: cover && assetPrefix + cover, file: 'textbook-added-' + slug + '.html',
             author: String(metadata.author || '').trim().slice(0, 160),
             publisher: String(metadata.publisher || '').trim().slice(0, 120),
             description: excerpt(metadata.description),
             date: metadata.date,
         });
     }
-    if (!additions.length) return;
-    const lastFile = priorFiles.at(-1);
-    if (lastFile) {
-        const lastPage = catalog.books[lastFile];
-        const links = /<nav class="textbook-page-nav"[\s\S]*?<\/nav>/;
-        if (!links.test(lastPage.main)) throw new Error('기존 교재의 페이지 이동 링크를 찾을 수 없습니다.');
-        lastPage.main = lastPage.main.replace(links, navigation(priorFiles.at(-2), additions[0].file, catalogFile));
-    }
-    const cards = additions.map((book, index) => {
-        const previous = additions[index - 1]?.file || lastFile;
-        const following = additions[index + 1]?.file;
-        const { card, page } = renderBook(book, escapeHtml, navigation(previous, following, catalogFile), catalogFile);
+    catalog.books = {};
+    const cards = books.map((book, index) => {
+        const nav = navigation(books[index - 1]?.file, books[index + 1]?.file, catalogFile);
+        const { card, page } = book.saved
+            ? renderSaved(book.saved, book, escapeHtml, nav)
+            : renderBook(book, escapeHtml, nav, catalogFile);
         catalog.books[book.file] = page;
         return card;
     });
-    const gridEnd = '</div><div class="textbook-library-bottom">';
-    if (!catalog.library.main.includes(gridEnd)) throw new Error('교재 목록의 끝을 찾을 수 없습니다.');
-    catalog.library.main = catalog.library.main.replace(gridEnd, () => '\n' + cards.join('\n') + '\n' + gridEnd);
-    console.log('온라인 교재 ' + additions.length + '권 추가 · 총 ' + Object.keys(catalog.books).length + '권');
+    const grid = /(<div class="textbook-grid">)[\s\S]*?(<\/div><div class="textbook-library-bottom">)/;
+    if (!grid.test(catalog.library.main)) throw new Error('교재 목록을 찾을 수 없습니다.');
+    const items = cards.length ? cards.join('\n') : '<p>등록된 교재가 없습니다.</p>';
+    catalog.library.main = catalog.library.main.replace(grid, (match, open, close) => open + '\n' + items + '\n' + close);
+    console.log('온라인 교재 총 ' + books.length + '권');
 }
 
-module.exports = { addTextbooks };
+function pruneTextbookPages(outputDir, originalFiles, books) {
+    const originals = new Set(originalFiles);
+    for (const file of fs.readdirSync(outputDir)) {
+        const generated = originals.has(file) || /^textbook-added-[a-f0-9]{16}\.html$/.test(file);
+        if (generated && !Object.hasOwn(books, file)) fs.rmSync(path.join(outputDir, file), { force: true });
+    }
+}
+
+module.exports = { applyTextbookList, pruneTextbookPages };

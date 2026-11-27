@@ -21,10 +21,10 @@ Node.js 20 이상에서 `npm run preview` → http://127.0.0.1:4173
 ## 온라인 교재 등록
 
 1. GitHub에서 [교재추가.txt 편집](https://github.com/PeterKimCode/GTCC-WellAging/edit/main/content/%EA%B5%90%EC%9E%AC%EC%B6%94%EA%B0%80.txt)을 엽니다.
-2. 파일 끝에 `책 제목 | 서점 상품 주소` 형식으로 한 줄에 한 권씩 적습니다.
+2. `책 제목 | 서점 상품 주소` 형식으로 한 줄에 한 권씩 적습니다. 화면에 표시되는 순서는 이 파일을 따릅니다.
 3. **Commit changes**로 `main`에 저장하면 GitHub Actions가 교재 카드와 상세 페이지를 만들어 [온라인 교재실](https://well.gtccedu.com/online-textbooks.html)에 배포합니다.
 
-추가한 교재를 변경하려면 해당 줄을 수정하고, 삭제하려면 해당 줄을 지웁니다. 표지·저자·출판사는 서점에서 조회할 수 있는 경우 표시합니다.
+기존 교재를 변경하려면 해당 줄을 수정하고, 삭제하려면 해당 줄을 지웁니다. 같은 상품 주소나 확인된 ISBN이 반복되면 첫 항목만 반영합니다. 표지·저자·출판사는 서점에서 조회할 수 있는 경우 표시합니다.
 
 ## 공개 주소
 https://well.gtccedu.com/
